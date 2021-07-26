@@ -1,0 +1,2 @@
+rootProject.name = "Flightapp Demo"
+include ':app'
