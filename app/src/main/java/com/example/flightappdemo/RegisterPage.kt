@@ -1,22 +1,28 @@
 package com.example.flightappdemo
 
+import android.app.Person
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.flightappdemo.models.ModelUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class RegisterPage : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var dbRef: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_page)
         auth = Firebase.auth
+        dbRef = Firebase.firestore
 
         val etRegisterName = findViewById<EditText>(R.id.etRegisterName)
         val etRegisterSurname = findViewById<EditText>(R.id.etRegisterSurname)
@@ -41,6 +47,8 @@ class RegisterPage : AppCompatActivity() {
                 else {
                     // password equality check
                     if (etRegisterPasswd.text.toString() == etRegisterPasswdApply.text.toString()) {
+                        val name = etRegisterName.text.toString()
+                        val surname = etRegisterSurname.text.toString()
                         val email = etRegisterMail.text.toString()
                         val password = etRegisterPasswd.text.toString()
 
@@ -49,7 +57,17 @@ class RegisterPage : AppCompatActivity() {
                                 if (task.isSuccessful) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("TAG", "createUserWithEmail:success")
-                                    val user = auth.currentUser
+
+                                    // user object
+                                    val userObj = ModelUser(auth.uid, name, surname, email)
+
+                                    // adding data to firebase
+                                    dbRef.collection("users").add(userObj).addOnSuccessListener {
+                                        Log.d("TAG", "DocumentSnapshot added with ID: $it")
+                                    }.addOnFailureListener {
+                                        Log.w("TAG", "Error adding document", it)
+                                    }
+
                                     Toast.makeText(this, "Register succeed.", Toast.LENGTH_LONG)
                                         .show()
                                     this.finish()

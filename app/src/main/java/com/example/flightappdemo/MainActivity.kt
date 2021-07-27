@@ -14,17 +14,12 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         auth = Firebase.auth
-
-//        // Write a message to the database
-//        val database = Firebase.database
-//        val myRef = database.getReference("message")
-//
-//        myRef.setValue("Hello, World!")
 
         val btnRegister = findViewById<Button>(R.id.btnRegister)
         btnRegister.setOnClickListener {
@@ -46,10 +41,8 @@ class MainActivity : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success")
                             Toast.makeText(this, "Login succeed.", Toast.LENGTH_LONG).show()
-                            val user = auth.currentUser
 
                             val intent = Intent(this, MainPage::class.java)
-                            intent.putExtra("userRef", user)
                             startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.
