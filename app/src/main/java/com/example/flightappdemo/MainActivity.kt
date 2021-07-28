@@ -1,59 +1,63 @@
 package com.example.flightappdemo
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.example.flightappdemo.tutorialpages.FirstFragment
+import com.example.flightappdemo.tutorialpages.SecondFragment
+import com.example.flightappdemo.tutorialpages.ThirdFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
 
+class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val pager = findViewById<View>(R.id.viewPager) as ViewPager
+        pager.adapter = MyPagerAdapter(supportFragmentManager)
 
-        auth = Firebase.auth
-
-        val btnRegister = findViewById<Button>(R.id.btnRegister)
-        btnRegister.setOnClickListener {
-            val intent = Intent(this, RegisterPage::class.java)
-            startActivity(intent)
+        // filling flights collection
+        var auth: FirebaseAuth = Firebase.auth
+        var dbRef: FirebaseFirestore = Firebase.firestore
+        for (i in 0..15) {
         }
 
-        val email = findViewById<EditText>(R.id.etLoginMail)
-        val password = findViewById<EditText>(R.id.etLoginPasswd)
-        val btnLogin = findViewById<Button>(R.id.btnLogin)
-        btnLogin.setOnClickListener {
-            if (email.text.isNullOrBlank() && password.text.isNullOrBlank()) {
-                Toast.makeText(this, "Email and password must be filled.", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInWithEmail:success")
-                            Toast.makeText(this, "Login succeed.", Toast.LENGTH_LONG).show()
+        // single use tutorial page
+        val preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+        val firstTime = preferences.getString("FirstTime", "")
 
-                            val intent = Intent(this, MainPage::class.java)
-                            startActivity(intent)
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInWithEmail:failure", task.exception)
-                            Toast.makeText(
-                                baseContext, "${task.exception?.message}",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    }
+        if (firstTime.equals("true")) {
+            val intent = Intent(this, LoginPage::class.java)
+            startActivity(intent)
+        } else {
+            val editor = preferences.edit()
+            editor.putString("FirstTime", "true")
+            editor.apply()
+        }
+    }
+
+    private inner class MyPagerAdapter(fm: FragmentManager?) :
+        FragmentPagerAdapter(fm!!) {
+        override fun getItem(pos: Int): Fragment {
+            return when (pos) {
+                0 -> FirstFragment()
+                1 -> SecondFragment()
+                2 -> ThirdFragment()
+                else -> ThirdFragment()
             }
+        }
+
+        override fun getCount(): Int {
+            return 3
         }
     }
 }

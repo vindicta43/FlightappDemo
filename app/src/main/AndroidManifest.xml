@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightappDemo">
-        <activity android:name=".MainPage"></activity>
+        <activity android:name=".LoginPage"></activity>
+        <activity android:name=".MainPage" />
         <activity android:name=".RegisterPage" />
         <activity android:name=".MainActivity">
             <intent-filter>
