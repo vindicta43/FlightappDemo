@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/navBarAirport"
+        android:title="Hava Alanları"
+        android:icon="@drawable/ic_airport"/>
+
+    <item android:id="@+id/placeholder"
+        android:title=""/>
+
+    <item android:id="@+id/navBarProfile"
+        android:title="Profil"
+        android:icon="@drawable/ic_profile"/>
+</menu>
