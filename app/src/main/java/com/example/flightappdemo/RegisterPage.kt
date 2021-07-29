@@ -25,9 +25,9 @@ class RegisterPage : AppCompatActivity() {
         auth = Firebase.auth
         dbRef = Firebase.firestore
 
-        val etRegisterName = findViewById<EditText>(R.id.etRegisterName)
-        val etRegisterSurname = findViewById<EditText>(R.id.etRegisterSurname)
-        val etRegisterMail = findViewById<EditText>(R.id.etRegisterMail)
+        val etRegisterName = findViewById<TextInputEditText>(R.id.etRegisterName)
+        val etRegisterSurname = findViewById<TextInputEditText>(R.id.etRegisterSurname)
+        val etRegisterMail = findViewById<TextInputEditText>(R.id.etRegisterMail)
         val etRegisterPasswd = findViewById<TextInputEditText>(R.id.etRegisterPasswd)
         val etRegisterPasswdApply = findViewById<TextInputEditText>(R.id.etRegisterPasswdApply)
 

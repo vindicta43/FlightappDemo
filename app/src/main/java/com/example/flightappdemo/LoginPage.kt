@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 class LoginPage : AppCompatActivity() {
@@ -22,13 +21,21 @@ class LoginPage : AppCompatActivity() {
 
         auth = Firebase.auth
 
+        // checking login status
+        // if user already logged in navigate to main page
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            val intent = Intent(this, MainPage::class.java)
+            startActivity(intent)
+        }
+
         val btnRegister = findViewById<Button>(R.id.btnRegister)
         btnRegister.setOnClickListener {
             val intent = Intent(this, RegisterPage::class.java)
             startActivity(intent)
         }
 
-        val email = findViewById<EditText>(R.id.etLoginMail)
+        val email = findViewById<TextInputEditText>(R.id.etLoginMail)
         val password = findViewById<TextInputEditText>(R.id.etLoginPasswd)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         btnLogin.setOnClickListener {
@@ -41,7 +48,7 @@ class LoginPage : AppCompatActivity() {
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success")
-                            Toast.makeText(this, "Login succeed.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Login succeed.", Toast.LENGTH_SHORT).show()
 
                             val intent = Intent(this, MainPage::class.java)
                             startActivity(intent)
@@ -50,7 +57,7 @@ class LoginPage : AppCompatActivity() {
                             Log.w("TAG", "signInWithEmail:failure", task.exception)
                             Toast.makeText(
                                 baseContext, "${task.exception?.message}",
-                                Toast.LENGTH_LONG
+                                Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
