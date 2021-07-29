@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.example.flightappdemo.models.ModelFlight
 import com.example.flightappdemo.models.ModelUser
@@ -48,7 +49,6 @@ class MainPage : AppCompatActivity() {
         bottomNavView.menu.getItem(1).isEnabled = false
 
         auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser
 
         // bottom nav view click event page transaction
         bottomNavView.setOnItemSelectedListener { item ->
