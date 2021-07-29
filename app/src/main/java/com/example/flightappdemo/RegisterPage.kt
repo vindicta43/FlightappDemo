@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.flightappdemo.models.ModelUser
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,8 +28,8 @@ class RegisterPage : AppCompatActivity() {
         val etRegisterName = findViewById<EditText>(R.id.etRegisterName)
         val etRegisterSurname = findViewById<EditText>(R.id.etRegisterSurname)
         val etRegisterMail = findViewById<EditText>(R.id.etRegisterMail)
-        val etRegisterPasswd = findViewById<EditText>(R.id.etRegisterPasswd)
-        val etRegisterPasswdApply = findViewById<EditText>(R.id.etRegisterPasswdApply)
+        val etRegisterPasswd = findViewById<TextInputEditText>(R.id.etRegisterPasswd)
+        val etRegisterPasswdApply = findViewById<TextInputEditText>(R.id.etRegisterPasswdApply)
 
         val btnRegisterPage = findViewById<Button>(R.id.btnRegisterPage)
         btnRegisterPage.setOnClickListener {

@@ -50,28 +50,36 @@
         android:padding="8dp"
         android:background="@drawable/custom_edit_text"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/etLoginPasswd"
+        app:layout_constraintBottom_toTopOf="@+id/loginPassLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <EditText
-        android:id="@+id/etLoginPasswd"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginPassLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:ems="10"
-        android:fontFamily="@font/gilroy_semibold"
         android:hint="Şifre"
-        android:padding="8dp"
-        android:background="@drawable/custom_edit_text"
-        android:inputType="textPassword"
+        android:padding="0dp"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etLoginMail"
-        android:drawableEnd="@drawable/password_eye"
-        android:layout_marginBottom="16dp"/>
+        app:passwordToggleEnabled="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_edit_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLoginPasswd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/gilroy_semibold"
+            android:inputType="textPassword"
+            android:background="@drawable/custom_edit_text"
+            android:ems="10"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnLogin"
@@ -84,7 +92,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLoginPasswd"
+        app:layout_constraintTop_toBottomOf="@+id/loginPassLayout"
         android:textAllCaps="false"
         android:layout_marginTop="56dp"/>
 

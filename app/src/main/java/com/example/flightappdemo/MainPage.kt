@@ -3,6 +3,9 @@ package com.example.flightappdemo
 import android.app.PendingIntent.getActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.flightappdemo.models.ModelFlight
 import com.example.flightappdemo.models.ModelUser
@@ -47,46 +50,6 @@ class MainPage : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
 
-        // val dbRef = FirebaseFirestore.getInstance()
-        val dbRef = Firebase.firestore
-
-        // getting user from firebase
-        val userRef = dbRef.collection("users").whereEqualTo("id", auth.uid)
-        userRef.get()
-            .addOnSuccessListener { doc ->
-                val allData = doc.documents[0].data
-
-                val name = allData?.get("name")
-                val surname = allData?.get("surname")
-                val email = allData?.get("email")
-                val id = allData?.get("id")
-
-                // tvMainPage.text = "Welcome $name $surname"
-            }
-
-        // flights list for recyclerView adapter
-        val flightsList = arrayListOf<ModelFlight>()
-
-        // getting flights from firebase
-        val flightRef = dbRef.collection("flights")
-        flightRef.get()
-            .addOnSuccessListener { flights ->
-                for (flight in flights) {
-                    var flightObj = ModelFlight(
-                        flight.get("airport").toString(),
-                        flight.get("departTime") as com.google.firebase.Timestamp,
-                        flight.get("departure").toString(),
-                        flight.get("destination").toString(),
-                        flight.get("flightCode").toString(),
-                        flight.get("price").toString()
-                    )
-                    // filling arrayList
-                    flightsList.add(flightObj)
-                }
-                //recyclerMain.layoutManager = GridLayoutManager(this, 2)
-                //recyclerMain.adapter = FlightAdapter(flightsList)
-            }
-
         // bottom nav view click event page transaction
         bottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -108,9 +71,15 @@ class MainPage : AppCompatActivity() {
         }
     }
 
+    private var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity()
+            return
+        }
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+        Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
     private fun changeFragment(frag: Fragment) {

@@ -41,7 +41,7 @@
 
     <EditText
         android:id="@+id/etRegisterName"
-        android:layout_width="379dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/custom_edit_text"
@@ -56,7 +56,7 @@
 
     <EditText
         android:id="@+id/etRegisterSurname"
-        android:layout_width="379dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/custom_edit_text"
@@ -67,12 +67,11 @@
         app:layout_constraintBottom_toTopOf="@+id/etRegisterMail"
         app:layout_constraintTop_toBottomOf="@+id/etRegisterName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etRegisterMail"
-        android:layout_width="379dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/custom_edit_text"
@@ -81,47 +80,62 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/etRegisterPasswd"
+        app:layout_constraintBottom_toTopOf="@+id/registerPassLayout"
         app:layout_constraintTop_toBottomOf="@+id/etRegisterSurname"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/etRegisterPasswd"
-        android:layout_width="379dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/registerPassLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:background="@drawable/custom_edit_text"
-        android:drawableEnd="@drawable/password_eye"
-        android:ems="10"
-        android:fontFamily="@font/gilroy_semibold"
         android:hint="Şifre"
-        android:inputType="textPassword"
-        android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/etRegisterPasswdApply"
-        app:layout_constraintTop_toBottomOf="@+id/etRegisterMail"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="0dp"
+        app:layout_constraintTop_toBottomOf="@id/etRegisterMail"
+        app:layout_constraintBottom_toTopOf="@id/registerPassApplyLayout"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:passwordToggleEnabled="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_edit_text">
 
-    <EditText
-        android:id="@+id/etRegisterPasswdApply"
-        android:layout_width="379dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etRegisterPasswd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/gilroy_semibold"
+            android:inputType="textPassword"
+            android:background="@drawable/custom_edit_text"
+            android:ems="10"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/registerPassApplyLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:background="@drawable/custom_edit_text"
-        android:drawableEnd="@drawable/password_eye"
-        android:ems="10"
-        android:fontFamily="@font/gilroy_semibold"
-        android:hint="Şifreyi Onayla"
-        android:inputType="textPassword"
-        android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegisterPage"
-        app:layout_constraintTop_toBottomOf="@+id/etRegisterPasswd"
+        android:hint="Şifre"
+        android:padding="0dp"
+        app:layout_constraintTop_toBottomOf="@id/registerPassLayout"
+        app:layout_constraintBottom_toTopOf="@+id/etRegisterMail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:passwordToggleEnabled="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_edit_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etRegisterPasswdApply"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/gilroy_semibold"
+            android:inputType="textPassword"
+            android:background="@drawable/custom_edit_text"
+            android:ems="10"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnRegisterPage"
@@ -133,7 +147,7 @@
         android:text="Kayıt Ol"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etRegisterPasswdApply"
+        app:layout_constraintTop_toBottomOf="@+id/registerPassApplyLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteX="16dp" />
