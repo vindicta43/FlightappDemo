@@ -8,17 +8,16 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.example.flightappdemo.models.ModelFlight
+import com.example.flightappdemo.models.ModelAirport
 import com.example.flightappdemo.tutorialpages.FirstFragment
 import com.example.flightappdemo.tutorialpages.SecondFragment
 import com.example.flightappdemo.tutorialpages.ThirdFragment
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.sql.Timestamp
-import java.util.*
 
 
 class MainActivity : FragmentActivity() {
@@ -42,6 +41,26 @@ class MainActivity : FragmentActivity() {
 //                    "num$i".uppercase(Locale.getDefault()),
 //                    "${i}00"
 //                ))
+//        }
+
+        // filling airports collection
+//        var auth: FirebaseAuth = Firebase.auth
+//        var dbRef: FirebaseFirestore = Firebase.firestore
+//        for (i in 0..10) {
+//            dbRef
+//                .collection("airports")
+//                .add(
+//                    ModelAirport(
+//                        "$i airport",
+//                        Timestamp.now(),
+//                        Timestamp.now(),
+//                        Timestamp.now(),
+//                        "DEP$i",
+//                        "DEST$i",
+//                        "${i*5} kg",
+//                        "${i+2} delay"
+//                    )
+//                )
 //        }
 
         // single use tutorial page

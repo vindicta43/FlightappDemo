@@ -22,7 +22,7 @@ class FlightsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_flights, container, false)
-        val recyclerMain = view.findViewById<RecyclerView>(R.id.recyclerMain)
+        val recyclerFlights = view.findViewById<RecyclerView>(R.id.recyclerFlights)
 
         // flights list for recyclerView adapter
         val flightsList = arrayListOf<ModelFlight>()
@@ -44,8 +44,8 @@ class FlightsFragment : Fragment() {
                     // filling arrayList
                     flightsList.add(flightObj)
                 }
-                recyclerMain.layoutManager = GridLayoutManager(view.context, 2)
-                recyclerMain.adapter = FlightAdapter(flightsList)
+                recyclerFlights.layoutManager = GridLayoutManager(view.context, 2)
+                recyclerFlights.adapter = FlightAdapter(flightsList)
             }
         return view
     }

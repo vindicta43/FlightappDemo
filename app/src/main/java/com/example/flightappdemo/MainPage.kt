@@ -35,12 +35,10 @@ class MainPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
 
-        // pass the empty page
+        // pass the empty page and make as main page
         changeFragment(AirportsFragment())
 
         // view implementations
-        // val tvMainPage = findViewById<TextView>(R.id.tvMainPage)
-        // val recyclerMain = findViewById<RecyclerView>(R.id.recyclerMain)
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottomNavView)
         val fabAirplane = findViewById<FloatingActionButton>(R.id.fabAirplane)
 

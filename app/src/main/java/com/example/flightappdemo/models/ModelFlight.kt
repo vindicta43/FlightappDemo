@@ -7,5 +7,4 @@ data class ModelFlight(
     val destination: String,
     val flightCode: String,
     val price: String
-) {
-}
+)
