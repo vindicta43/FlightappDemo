@@ -63,11 +63,14 @@ class RegisterPage : AppCompatActivity() {
                                     val userObj = ModelUser(auth.uid, name, surname, email)
 
                                     // adding data to firebase
-                                    dbRef.collection("users").add(userObj).addOnSuccessListener {
-                                        Log.d("TAG", "DocumentSnapshot added with ID: $it")
-                                    }.addOnFailureListener {
-                                        Log.w("TAG", "Error adding document", it)
+                                    dbRef.collection("users").document(auth.uid.toString()).set(userObj).addOnSuccessListener {
+
                                     }
+//                                    dbRef.collection("users").add(userObj).addOnSuccessListener {
+//                                        Log.d("TAG", "DocumentSnapshot added with ID: $it")
+//                                    }.addOnFailureListener {
+//                                        Log.w("TAG", "Error adding document", it)
+//                                    }
 
                                     Toast.makeText(this, "Register succeed.", Toast.LENGTH_LONG)
                                         .show()
