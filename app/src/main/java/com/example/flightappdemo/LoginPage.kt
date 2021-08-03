@@ -63,10 +63,7 @@ class LoginPage : AppCompatActivity() {
                     }
             }
         }
-
-
     }
-
     override fun onBackPressed() {
         super.onBackPressed()
         finishAffinity()

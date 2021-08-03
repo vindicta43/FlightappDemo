@@ -1,20 +1,26 @@
 package com.example.flightappdemo.mainpages
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import com.example.flightappdemo.LoginPage
+import com.example.flightappdemo.MainPage
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelUser
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -66,11 +72,26 @@ class ProfileFragment : Fragment() {
         btnProfileUpdate.setOnClickListener {
             if (etProfileName.text.toString() == name &&
                 etProfileSurname.text.toString() == surname &&
-                etProfileMail.text.toString() == email
+                etProfileMail.text.toString() == email &&
+                etProfilePasswd.text.isNullOrEmpty()
             ) {
-                createAlert(view, false, auth.uid, name, surname, email)
+                createAlert(
+                    view,
+                    false,
+                    auth.uid,
+                    etProfileName.text.toString(),
+                    etProfileSurname.text.toString(),
+                    etProfileMail.text.toString()
+                )
             } else {
-                createAlert(view, true, auth.uid, name, surname, email)
+                createAlert(
+                    view,
+                    true,
+                    auth.uid,
+                    etProfileName.text.toString(),
+                    etProfileSurname.text.toString(),
+                    etProfileMail.text.toString()
+                )
             }
         }
 
@@ -80,27 +101,82 @@ class ProfileFragment : Fragment() {
     private fun createAlert(
         view: View?,
         isChanged: Boolean,
-        id: String?,
-        name: String?,
-        surname: String?,
-        email: String?
+        funId: String?,
+        funName: String?,
+        funSurname: String?,
+        funEmail: String?
     ) {
         if (isChanged) {
             val alert = AlertDialog.Builder(view?.context)
             val dbRef = Firebase.firestore
-            val newUser = ModelUser(id, name, surname, email)
+            val newUser = ModelUser(funId, funName, funSurname, funEmail)
             alert.setTitle("Uyarı")
             alert.setMessage("Bilgileriniz güncellenecektir. Onaylıyor musunuz?")
             alert.setCancelable(false)
             alert.setPositiveButton("Evet") { text, listener ->
-                var userRef = dbRef.collection("users").document(auth.uid.toString())
-                userRef.set(newUser)
-                Toast.makeText(view?.context, "Updated successfully", Toast.LENGTH_SHORT).show()
+                // if email changed
+                if (funEmail != auth.currentUser?.email) {
+                    // new alert dialog for validate password
+                    alert.setTitle("Onayla")
+                    alert.setMessage("Bilgilerinizi değiştirmek için parolanızı girin")
+                    val input = EditText(view?.context)
+                    input.setHint("Parola")
+                    input.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    alert.setView(input)
+
+                    alert.setPositiveButton("Onayla") { text, listener ->
+                        val authEmail = auth.currentUser?.email.toString()
+                        val authPass = input.text.toString()
+                        val credential = EmailAuthProvider.getCredential(authEmail, authPass)
+                        val user = Firebase.auth.currentUser
+                        user?.reauthenticate(credential)
+                            // update email
+                            ?.addOnCompleteListener {
+                                // authenticade verified
+                                if (it.isSuccessful) {
+                                    try {
+                                        // update email
+                                        user.updateEmail(funEmail!!).addOnCompleteListener {
+
+                                        }
+                                        // if password changed uptade
+                                        val passField =
+                                            view?.findViewById<TextInputEditText>(R.id.etProfilePasswd)
+                                        if (!(passField?.text.toString().isNullOrEmpty())) {
+                                            user.updatePassword(passField?.text.toString()).addOnCompleteListener {
+
+                                            }
+                                        }
+                                        // update part
+                                        val userRef =
+                                            dbRef.collection("users").document(auth.uid.toString())
+                                        userRef.set(newUser)
+                                        // page transaction
+                                        logout()
+                                    } catch (e: Exception) {
+                                        Toast.makeText(view?.context, e.message, Toast.LENGTH_LONG)
+                                            .show()
+                                    }
+                                } else {
+                                    Toast.makeText(
+                                        view?.context,
+                                        "Authentication failed",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                    }
+                    alert.setNegativeButton("Iptal") { text, listener ->
+                        Toast.makeText(view?.context, "Cancelled", Toast.LENGTH_SHORT).show()
+                    }
+                    alert.show()
+                } else {
+                    val userRef = dbRef.collection("users").document(auth.uid.toString())
+                    userRef.set(newUser)
+                    Toast.makeText(view?.context, "Updated successfully", Toast.LENGTH_SHORT).show()
+                }
             }
             alert.setNegativeButton("Hayır") { text, listener ->
-
-            }
-            alert.setNeutralButton("Iptal") { text, listener ->
 
             }
             alert.show()
@@ -110,9 +186,22 @@ class ProfileFragment : Fragment() {
             alert.setMessage("Hiçbir bilgi değiştirilmedi.")
             alert.setCancelable(false)
             alert.setPositiveButton("Tamam") { text, listener ->
-
             }
             alert.show()
         }
+    }
+
+    private fun logout() {
+        // new alert for reauthenticate
+        val alert = AlertDialog.Builder(view?.context)
+        alert.setTitle("Başarılı")
+        alert.setMessage("Bilgileriniz güncellendi. Yeniden giriş yapmanız gerekli.")
+        alert.setCancelable(false)
+        alert.setPositiveButton("Tamam") { text, listener ->
+            val intent = Intent(view?.context, LoginPage::class.java)
+            startActivity(intent)
+            auth.signOut()
+        }
+        alert.show()
     }
 }
