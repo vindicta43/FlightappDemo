@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -122,6 +123,7 @@ class ProfileFragment : Fragment() {
                     val input = EditText(view?.context)
                     input.setHint("Parola")
                     input.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    input.transformationMethod = PasswordTransformationMethod.getInstance()
                     alert.setView(input)
 
                     alert.setPositiveButton("Onayla") { text, listener ->

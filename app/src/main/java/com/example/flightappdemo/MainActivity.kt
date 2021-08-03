@@ -62,7 +62,6 @@ class MainActivity : FragmentActivity() {
 //                    )
 //                )
 //        }
-
         // single use tutorial page
         val preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
         val firstTime = preferences.getString("FirstTime", "")
