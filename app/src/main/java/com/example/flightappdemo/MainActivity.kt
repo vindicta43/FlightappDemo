@@ -2,7 +2,9 @@ package com.example.flightappdemo
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -18,6 +20,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 
 
 class MainActivity : FragmentActivity() {
@@ -62,6 +67,7 @@ class MainActivity : FragmentActivity() {
 //                    )
 //                )
 //        }
+
         // single use tutorial page
         val preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
         val firstTime = preferences.getString("FirstTime", "")

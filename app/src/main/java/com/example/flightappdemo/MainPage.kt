@@ -1,11 +1,15 @@
 package com.example.flightappdemo
 
 import android.app.PendingIntent.getActivity
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.example.flightappdemo.models.ModelFlight
@@ -27,13 +31,49 @@ import com.example.flightappdemo.mainpages.AirportsFragment
 import com.example.flightappdemo.mainpages.FlightsFragment
 import com.example.flightappdemo.mainpages.ProfileFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 
 class MainPage : AppCompatActivity() {
+    // firebase auth instance
     private lateinit var auth: FirebaseAuth
+
+    // remote config instance
+    private lateinit var remoteConfig: FirebaseRemoteConfig
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
+
+        // remote config codes
+        remoteConfig = Firebase.remoteConfig
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 10
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val updated = task.result
+                    val versionNum = applicationContext.packageManager.getPackageInfo(
+                        this.packageName,
+                        0
+                    ).versionName
+                    val versionNumRemote = remoteConfig.getString("version_number")
+                    Toast.makeText(
+                        this,
+                        "$versionNumRemote\n$versionNum\n$updated",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    if (versionNum != versionNumRemote) {
+                        forceUpdate(remoteConfig.getString("url"))
+                    }
+                }
+            }
 
         // pass the empty page and make as main page
         changeFragment(AirportsFragment())
@@ -67,6 +107,22 @@ class MainPage : AppCompatActivity() {
             val newFragment = FlightsFragment()
             changeFragment(newFragment)
         }
+    }
+
+    private fun forceUpdate(url: String) {
+        val alert = AlertDialog.Builder(this)
+        alert.setTitle("Uyarı")
+        alert.setMessage("Uygulamanız güncel değil. Lütfen en son sürüme güncelleyin.")
+        alert.setNegativeButton("Iptal") { text, listener->
+            finishAffinity()
+        }
+        alert.setPositiveButton("Güncelle") { text, listener->
+            val redirectUrl = Uri.parse(url)
+            val intent = Intent(Intent.ACTION_VIEW, redirectUrl)
+            startActivity(intent)
+        }
+        alert.setCancelable(false)
+        alert.show()
     }
 
     private var doubleBackToExitPressedOnce = false

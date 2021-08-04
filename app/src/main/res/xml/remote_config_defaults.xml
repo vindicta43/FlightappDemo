@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap xmlns:android="http://schemas.android.com/apk/res/android">
+    <entry>
+        <key>update_required</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>url</key>
+        <value>https://play.google.com/store/apps/details?id=com.spotify.music</value>
+    </entry>
+</defaultsMap>
