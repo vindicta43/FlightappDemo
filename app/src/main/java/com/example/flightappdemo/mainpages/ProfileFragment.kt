@@ -42,10 +42,6 @@ class ProfileFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = Firebase.analytics
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, "ProfileFragment")
-            param(FirebaseAnalytics.Param.SCREEN_NAME, "Profile")
-        }
 
         var name: String? = ""
         var surname: String? = ""
@@ -74,7 +70,7 @@ class ProfileFragment : Fragment() {
             }
 
         btnProfileLogout.setOnClickListener {
-            firebaseAnalytics.logEvent("Logout_button_click") {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "btnProfileLogout")
             }
             auth.signOut()
@@ -166,7 +162,7 @@ class ProfileFragment : Fragment() {
                                         val userRef =
                                             dbRef.collection("users").document(auth.uid.toString())
                                         userRef.set(newUser)
-                                        firebaseAnalytics.logEvent("Update_button_click") {
+                                        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
                                             param(FirebaseAnalytics.Param.ITEM_NAME, "btnProfileUpdate")
                                         }
                                         // page transaction
@@ -191,7 +187,7 @@ class ProfileFragment : Fragment() {
                 } else {
                     val userRef = dbRef.collection("users").document(auth.uid.toString())
                     userRef.set(newUser)
-                    firebaseAnalytics.logEvent("Update_button_click") {
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
                         param(FirebaseAnalytics.Param.ITEM_NAME, "btnProfileUpdate")
                     }
                     Toast.makeText(view?.context, "Updated successfully", Toast.LENGTH_SHORT).show()

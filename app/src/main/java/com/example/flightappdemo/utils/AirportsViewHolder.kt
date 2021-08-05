@@ -1,43 +1,43 @@
 package com.example.flightappdemo.utils
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelAirport
 import java.text.SimpleDateFormat
-import java.time.Duration
-import java.time.Period
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class AirportsViewHolder(container: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(container.context).inflate(R.layout.airports_layout, container, false)
 ) {
-    val tvCardAirport = itemView.findViewById<TextView>(R.id.tvCardAirport)
-    val tvCardDeparture = itemView.findViewById<TextView>(R.id.tvCardDeparture)
-    val tvCardFlightTime = itemView.findViewById<TextView>(R.id.tvCardFlightTime)
-    val tvCardDestination = itemView.findViewById<TextView>(R.id.tvCardDestination)
-    val tvCardFlightCodeDeparture = itemView.findViewById<TextView>(R.id.tvCardFlightCodeDeparture)
-    val tvCardFlightCodeDestination =
-        itemView.findViewById<TextView>(R.id.tvCardFlightCodeDestination)
-    val tvCardKilogram = itemView.findViewById<TextView>(R.id.tvCardKilogram)
-    val tvCardDelay = itemView.findViewById<TextView>(R.id.tvCardDelay)
+    val tvAirportCode = itemView.findViewById<TextView>(R.id.tvAirportCode)
+    val tvAirportName = itemView.findViewById<TextView>(R.id.tvAirportName)
+    val tvAirportCountry = itemView.findViewById<TextView>(R.id.tvAirportCountry)
+    val ivAirportMap = itemView.findViewById<ImageView>(R.id.ivAirportMap)
+    val ivAirportTelephone = itemView.findViewById<ImageView>(R.id.ivAirportTelephone)
 
     fun bind(modelAirport: ModelAirport) {
-        val formatter = SimpleDateFormat("HH:mm")
-        val depart = formatter.format(modelAirport.departure.toDate())
-        val dest = formatter.format(modelAirport.destination.toDate())
-        val flightTime = formatter.format(modelAirport.destination.toDate())
+        tvAirportCode.text = modelAirport.airportCode
+        tvAirportName.text = modelAirport.airportName
+        tvAirportCountry.text = modelAirport.airportCountry
+        val latitude = modelAirport.latitude
+        val longitude = modelAirport.longitude
+        val airportTelephone = modelAirport.airportTelephone
 
-        tvCardAirport.text = modelAirport.airport
-        tvCardDeparture.text = depart
-        tvCardFlightTime.text = flightTime
-        tvCardDestination.text = dest
-        tvCardFlightCodeDeparture.text = modelAirport.flightCodeDepart
-        tvCardFlightCodeDestination.text = modelAirport.flightCodeDest
-        tvCardKilogram.text = modelAirport.kilogram
-        tvCardDelay.text = modelAirport.delay
+        ivAirportMap.setOnClickListener {
+            val uri = Uri.parse("http://maps.google.com/maps?saddr=$latitude,$longitude")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            it.context.startActivity(intent)
+        }
+        ivAirportTelephone.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$airportTelephone")
+            it.context.startActivity(intent)
+        }
     }
 }

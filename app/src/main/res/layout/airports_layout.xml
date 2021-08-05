@@ -17,145 +17,68 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/tvCardAirport"
+                android:id="@+id/tvAirportCode"
+                android:text="tvAirportCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="tvCardAirport"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/tvCardDeparture"
+                android:id="@+id/tvAirportName"
+                android:text="tvAirportName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tvCardDepart"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="4dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/tvCardFlightCodeDestination"
-                app:layout_constraintTop_toTopOf="@id/tvCardFlightCodeDestination"
-                app:layout_constraintEnd_toStartOf="@id/tvCardFlightTime"/>
+                app:layout_constraintTop_toBottomOf="@id/tvAirportCode"
+                />
 
             <TextView
-                android:id="@+id/tvCardFlightTime"
+                android:id="@+id/tvAirportCountry"
+                android:text="tvAirportCountry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tvCardFlightTime"
-                android:layout_margin="4dp"
-                app:layout_constraintStart_toEndOf="@id/tvCardDeparture"
-                app:layout_constraintBottom_toBottomOf="@id/tvCardDeparture"
-                app:layout_constraintTop_toTopOf="@id/tvCardDeparture"
-                app:layout_constraintEnd_toStartOf="@id/tvCardDestination"/>
-
-            <TextView
-                android:id="@+id/tvCardDestination"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tvCardDest"
-                android:layout_margin="4dp"
-                app:layout_constraintBottom_toBottomOf="@id/tvCardFlightTime"
-                app:layout_constraintStart_toEndOf="@id/tvCardFlightTime"
-                app:layout_constraintTop_toTopOf="@id/tvCardFlightTime" />
-
-            <TextView
-                android:id="@+id/tvCardFlightCodeDeparture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tvCodeDepart"
-                android:layout_margin="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/imageView17"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAirportName"/>
 
             <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="20dp"
-                android:layout_height="50dp"
-                android:src="@drawable/view_dash_vertical"
-                android:scaleType="fitXY"
-                app:layout_constraintEnd_toEndOf="@id/tvCardFlightCodeDeparture"
-                app:layout_constraintStart_toStartOf="@id/tvCardFlightCodeDeparture"
-                app:layout_constraintTop_toBottomOf="@id/tvCardFlightCodeDeparture"
-                app:layout_constraintBottom_toTopOf="@id/tvCardFlightCodeDestination"/>
-
-            <TextView
-                android:id="@+id/tvCardFlightCodeDestination"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tvCodeDest"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toTopOf="@id/space"
-                app:layout_constraintEnd_toEndOf="@id/tvCardFlightCodeDeparture"
-                app:layout_constraintStart_toStartOf="@id/tvCardFlightCodeDeparture"
-                app:layout_constraintTop_toBottomOf="@id/imageView17" />
-
-            <View
-                android:id="@+id/space"
+                android:id="@+id/ImageView12"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/grey"
-                app:layout_constraintTop_toBottomOf="@id/tvCardFlightCodeDestination"
+                android:layout_height="10dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/view_dash_horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/imageView18"/>
+                app:layout_constraintTop_toBottomOf="@id/tvAirportCountry"/>
 
             <ImageView
-                android:id="@+id/imageView18"
+                android:id="@+id/ivAirportMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_bag"
+                android:src="@drawable/ic_maps"
                 android:layout_margin="16dp"
-                app:layout_constraintTop_toBottomOf="@id/space"
+                android:padding="4dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <TextView
-                android:id="@+id/tvCardKilogram"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tvKilogram"
-                android:layout_margin="4dp"
-                app:layout_constraintStart_toEndOf="@id/imageView18"
-                app:layout_constraintTop_toBottomOf="@id/space"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-
-            <ImageView
-                android:id="@+id/ImageView19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_delay"
-                app:layout_constraintStart_toEndOf="@id/tvCardKilogram"
-                app:layout_constraintTop_toBottomOf="@id/space"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="16dp"/>
-
-            <TextView
-                android:id="@+id/tvCardDelay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tvDelay"
-                app:layout_constraintStart_toEndOf="@id/ImageView19"
-                android:layout_marginStart="4dp"
-                app:layout_constraintTop_toBottomOf="@id/space"
+                app:layout_constraintTop_toBottomOf="@id/ImageView12"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
-                android:id="@+id/imageView20"
+                android:id="@+id/ivAirportTelephone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_right"
-                app:layout_constraintTop_toBottomOf="@id/space"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_phone"
+                android:layout_margin="16dp"
+                android:padding="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp"
-                />
-
+                app:layout_constraintTop_toBottomOf="@id/ImageView12"
+                app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

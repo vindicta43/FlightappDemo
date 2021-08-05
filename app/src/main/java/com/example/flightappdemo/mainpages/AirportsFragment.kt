@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
@@ -18,7 +19,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class AirportsFragment : Fragment() {
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,27 +32,18 @@ class AirportsFragment : Fragment() {
 
         // getting airports from firebase
         val dbRef = Firebase.firestore
-        // Obtain the FirebaseAnalytics instance.
-        firebaseAnalytics = Firebase.analytics
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, "AirportsFragment")
-            param(FirebaseAnalytics.Param.SCREEN_NAME, "Airports")
-        }
 
         val airportsRef = dbRef.collection("airports")
         airportsRef.get()
             .addOnSuccessListener { airports ->
                 for (airport in airports) {
                     val airportObj = ModelAirport(
-                        airport.get("airport").toString(),
-                        airport.get("departure") as Timestamp,
-                        airport.get("flightTime") as Timestamp,
-                        airport.get("destination") as Timestamp,
-                        airport.get("flightCodeDepart").toString(),
-                        airport.get("flightCodeDest").toString(),
-                        airport.get("kilogram").toString(),
-                        airport.get("delay").toString(),
-
+                        airport.get("airportCode").toString(),
+                        airport.get("airportCountry").toString(),
+                        airport.get("airportName").toString(),
+                        airport.get("airportTelephone").toString(),
+                        airport.get("latitude").toString(),
+                        airport.get("longitude").toString(),
                     )
                     // filling arrayList
                     airportsList.add(airportObj)

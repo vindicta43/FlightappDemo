@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelFlight
@@ -35,27 +36,24 @@ class FlightsFragment : Fragment() {
         val dbRef = Firebase.firestore
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = Firebase.analytics
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, "FlightsFragment")
-            param(FirebaseAnalytics.Param.SCREEN_NAME, "Flights")
-        }
 
         val flightRef = dbRef.collection("flights")
         flightRef.get()
             .addOnSuccessListener { flights ->
                 for (flight in flights) {
                     val flightObj = ModelFlight(
-                        flight.get("airport").toString(),
-                        flight.get("departTime") as Timestamp,
-                        flight.get("departure").toString(),
-                        flight.get("destination").toString(),
-                        flight.get("flightCode").toString(),
-                        flight.get("price").toString()
+                        flight.get("flightBaggageCap").toString(),
+                        flight.get("flightCompany").toString(),
+                        flight.get("flightDelay").toString(),
+                        flight.get("flightDepartureCode").toString(),
+                        flight.get("flightDestinationCode").toString(),
+                        flight.get("flightDepartureTime")as Timestamp,
+                        flight.get("flightDestinationTime")as Timestamp,
                     )
                     // filling arrayList
                     flightsList.add(flightObj)
                 }
-                recyclerFlights.layoutManager = GridLayoutManager(view.context, 2)
+                recyclerFlights.layoutManager = LinearLayoutManager(view.context)
                 recyclerFlights.adapter = FlightAdapter(flightsList)
             }
         return view

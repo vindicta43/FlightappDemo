@@ -31,6 +31,9 @@ import com.example.flightappdemo.mainpages.AirportsFragment
 import com.example.flightappdemo.mainpages.FlightsFragment
 import com.example.flightappdemo.mainpages.ProfileFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -42,6 +45,8 @@ class MainPage : AppCompatActivity() {
 
     // remote config instance
     private lateinit var remoteConfig: FirebaseRemoteConfig
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,15 +93,25 @@ class MainPage : AppCompatActivity() {
         bottomNavView.menu.getItem(1).isEnabled = false
 
         auth = FirebaseAuth.getInstance()
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = Firebase.analytics
 
         // bottom nav view click event page transaction
         bottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navBarAirport -> {
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+                        param(FirebaseAnalytics.Param.SCREEN_CLASS, "AirportsFragment")
+                        param(FirebaseAnalytics.Param.SCREEN_NAME, "Airports")
+                    }
                     val newFragment = AirportsFragment()
                     changeFragment(newFragment)
                 }
                 R.id.navBarProfile -> {
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+                        param(FirebaseAnalytics.Param.SCREEN_CLASS, "ProfileFragment")
+                        param(FirebaseAnalytics.Param.SCREEN_NAME, "Profile")
+                    }
                     val newFragment = ProfileFragment()
                     changeFragment(newFragment)
                 }
@@ -105,6 +120,10 @@ class MainPage : AppCompatActivity() {
         }
         // fab flights
         fabAirplane.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+                param(FirebaseAnalytics.Param.SCREEN_CLASS, "FlightsFragment")
+                param(FirebaseAnalytics.Param.SCREEN_NAME, "Flights")
+            }
             val newFragment = FlightsFragment()
             changeFragment(newFragment)
         }

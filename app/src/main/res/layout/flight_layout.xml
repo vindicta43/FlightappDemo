@@ -1,102 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="4dp"
-    android:layout_margin="12dp"
+    android:layout_margin="8dp"
     android:gravity="center"
-    android:background="@drawable/flight_layout_bg"
-    android:backgroundTint="@color/grey">
+    android:background="@drawable/flight_layout_bg" >
 
-    <TextView
-        android:id="@+id/tvFlightCode"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="fligtCode"
-        android:textSize="16sp"
-        android:fontFamily="@font/gilroy_extra_bold"
-        android:textColor="@color/design_default_color_primary"
-        android:layout_marginVertical="4dp"/>
-
-    <TextView
-        android:id="@+id/tvAirport"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="airport"
-        android:textSize="12sp"
-        android:fontFamily="@font/gilroy_regular"
-        android:textColor="@color/design_default_color_primary"/>
-
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        app:srcCompat="@drawable/view_dash_horizontal" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvDeparture"
+            android:id="@+id/tvFlightCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="tvFlightCompany"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvFlightDepartureTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="depart"
-            android:textSize="12sp"
-            android:fontFamily="@font/gilroy_semibold"
-            android:textColor="@color/design_default_color_primary_dark"
-            android:layout_weight="1"
-            android:layout_marginStart="2dp"
-            />
-
-        <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="8dp"
-            app:srcCompat="@drawable/ic_arrow_right" />
+            app:layout_constraintBottom_toBottomOf="@+id/tvFlightTime"
+            app:layout_constraintStart_toStartOf="@id/tvFlightCompany"
+            app:layout_constraintTop_toTopOf="@+id/tvFlightTime" />
 
         <TextView
-            android:id="@+id/tvDestination"
+            android:id="@+id/tvFlightTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:fontFamily="@font/gilroy_semibold"
+            android:text="fligt time"
+            app:layout_constraintBottom_toBottomOf="@+id/tvFlightDestinationTime"
+            app:layout_constraintEnd_toStartOf="@+id/tvFlightDestinationTime"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvFlightDepartureTime"
+            app:layout_constraintTop_toTopOf="@+id/tvFlightDestinationTime" />
+
+        <TextView
+            android:id="@+id/tvFlightDestinationTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="dest"
-            android:textColor="@color/design_default_color_primary_dark"
-            android:textSize="12sp"
-            android:layout_weight="1"
-            android:textAlignment="textEnd"
-            android:layout_marginEnd="2dp"/>
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/space"
+            app:layout_constraintEnd_toStartOf="@+id/tvFlightCodeDeparture"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvFlightTime" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:showDividers="">
-
-        <ImageView
-            android:id="@+id/ivMap"
+        <TextView
+            android:id="@+id/tvFlightCodeDestination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_maps"
-            android:padding="4dp"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="codeDest"
+            app:layout_constraintBottom_toTopOf="@+id/imageView17"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/ivTelephone"
+        <TextView
+            android:id="@+id/tvFlightCodeDeparture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_phone"
-            android:padding="4dp"
-            android:layout_marginStart="16dp"/>
-    </LinearLayout>
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="codeDepart"
+            app:layout_constraintBottom_toTopOf="@+id/space"
+            app:layout_constraintEnd_toEndOf="@id/tvFlightCodeDestination"
+            app:layout_constraintStart_toStartOf="@id/tvFlightCodeDestination"
+            app:layout_constraintTop_toBottomOf="@+id/imageView17" />
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/view_dash_vertical"
+            app:layout_constraintBottom_toTopOf="@+id/tvFlightCodeDeparture"
+            app:layout_constraintEnd_toEndOf="@id/tvFlightCodeDestination"
+            app:layout_constraintStart_toStartOf="@id/tvFlightCodeDestination"
+            app:layout_constraintTop_toBottomOf="@+id/tvFlightCodeDestination" />
+
+        <View
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toTopOf="@id/imageView18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFlightCodeDeparture" />
+
+        <ImageView
+            android:id="@+id/imageView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_bag"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space" />
+
+        <TextView
+            android:id="@+id/tvFlightBaggageCap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="tvKilogram"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageView18"
+            app:layout_constraintTop_toBottomOf="@id/space" />
+
+        <ImageView
+            android:id="@+id/ImageView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_delay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvFlightBaggageCap"
+            app:layout_constraintTop_toBottomOf="@id/space" />
+
+        <TextView
+            android:id="@+id/tvFlightDelay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="tvDelay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ImageView19"
+            app:layout_constraintTop_toBottomOf="@id/space" />
+
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

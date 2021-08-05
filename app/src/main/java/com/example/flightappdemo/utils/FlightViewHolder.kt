@@ -1,16 +1,13 @@
 package com.example.flightappdemo.utils
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelFlight
-import java.util.logging.Handler
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FlightViewHolder(container: ViewGroup) :
     RecyclerView.ViewHolder(
@@ -20,28 +17,37 @@ class FlightViewHolder(container: ViewGroup) :
             false
         )
     ) {
-    val tvFlightCode = itemView.findViewById<TextView>(R.id.tvFlightCode)
-    val tvAirport = itemView.findViewById<TextView>(R.id.tvAirport)
-    val tvDeparture = itemView.findViewById<TextView>(R.id.tvDeparture)
-    val tvDestination = itemView.findViewById<TextView>(R.id.tvDestination)
-    val ivMap = itemView.findViewById<ImageView>(R.id.ivMap)
-    val ivTelephone = itemView.findViewById<ImageView>(R.id.ivTelephone)
+    val tvFlightCompany = itemView.findViewById<TextView>(R.id.tvFlightCompany)
+    val tvFlightDepartureTime = itemView.findViewById<TextView>(R.id.tvFlightDepartureTime)
+    val tvFlightTime = itemView.findViewById<TextView>(R.id.tvFlightTime)
+    val tvFlightDestinationTime = itemView.findViewById<TextView>(R.id.tvFlightDestinationTime)
+    val tvFlightCodeDestination = itemView.findViewById<TextView>(R.id.tvFlightCodeDestination)
+    val tvFlightCodeDeparture = itemView.findViewById<TextView>(R.id.tvFlightCodeDeparture)
+    val tvFlightBaggageCap = itemView.findViewById<TextView>(R.id.tvFlightBaggageCap)
+    val tvFlightDelay = itemView.findViewById<TextView>(R.id.tvFlightDelay)
+
 
     fun bind(modelFlight: ModelFlight) {
-        tvFlightCode.text = modelFlight.flightCode
-        tvAirport.text = modelFlight.airport
-        tvDeparture.text = modelFlight.departure
-        tvDestination.text = modelFlight.destination
+        val millisecondsDepart = modelFlight.flightDepartureTime.seconds * 1000 + modelFlight.flightDepartureTime.nanoseconds / 1000000
+        val millisecondsDest = modelFlight.flightDestinationTime.seconds * 1000 + modelFlight.flightDestinationTime.nanoseconds / 1000000
+        val millisecondsFlight = millisecondsDest - millisecondsDepart
 
-        ivMap.setOnClickListener {
-            val uri = Uri.parse("https://www.google.com/maps/search/central+park/@40.7744986,-73.9779284,15z/data=!3m1!4b1")
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            it.context.startActivity(intent)
-        }
-        ivTelephone.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:${tvFlightCode.text}")
-            it.context.startActivity(intent)
-        }
+        val dateFormat = SimpleDateFormat("kk:mm")
+        val newDateDepart = Date(millisecondsDepart)
+        val newDateDest = Date(millisecondsDest)
+        val newDateFlight = Date(millisecondsFlight)
+
+        val departTime = dateFormat.format(newDateDepart).toString()
+        val destTime = dateFormat.format(newDateDest).toString()
+        val flight = dateFormat.format(newDateFlight).toString()
+
+        tvFlightCompany.text = modelFlight.flightCompany
+        tvFlightDepartureTime.text = departTime
+        tvFlightTime.text = flight
+        tvFlightDestinationTime.text = destTime
+        tvFlightCodeDeparture.text = modelFlight.flightDepartureCode
+        tvFlightCodeDestination.text = modelFlight.flightDestinationCode
+        tvFlightBaggageCap.text = modelFlight.flightBaggageCap
+        tvFlightDelay.text = modelFlight.flightDelay
     }
 }
