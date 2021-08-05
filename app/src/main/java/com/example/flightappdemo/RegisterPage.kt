@@ -9,6 +9,9 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.flightappdemo.models.ModelUser
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,12 +21,19 @@ import com.google.firebase.ktx.Firebase
 class RegisterPage : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var dbRef: FirebaseFirestore
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_page)
         auth = Firebase.auth
         dbRef = Firebase.firestore
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "RegisterPage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Register Page")
+        }
 
         val etRegisterName = findViewById<TextInputEditText>(R.id.etRegisterName)
         val etRegisterSurname = findViewById<TextInputEditText>(R.id.etRegisterSurname)
@@ -66,12 +76,9 @@ class RegisterPage : AppCompatActivity() {
                                     dbRef.collection("users").document(auth.uid.toString()).set(userObj).addOnSuccessListener {
 
                                     }
-//                                    dbRef.collection("users").add(userObj).addOnSuccessListener {
-//                                        Log.d("TAG", "DocumentSnapshot added with ID: $it")
-//                                    }.addOnFailureListener {
-//                                        Log.w("TAG", "Error adding document", it)
-//                                    }
-
+                                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP) {
+                                        param(FirebaseAnalytics.Param.METHOD, "sign_up_email")
+                                    }
                                     Toast.makeText(this, "Register succeed.", Toast.LENGTH_LONG)
                                         .show()
                                     this.finish()

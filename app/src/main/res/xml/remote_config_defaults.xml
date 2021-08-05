@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defaultsMap xmlns:android="http://schemas.android.com/apk/res/android">
     <entry>
-        <key>update_required</key>
-        <value>false</value>
+        <key>minimum_version</key>
+        <value>1.0</value>
+    </entry>
+    <entry>
+        <key>latest_version</key>
+        <value>1.0</value>
     </entry>
     <entry>
         <key>url</key>

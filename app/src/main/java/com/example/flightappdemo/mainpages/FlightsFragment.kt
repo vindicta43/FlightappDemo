@@ -12,10 +12,14 @@ import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelFlight
 import com.example.flightappdemo.utils.FlightAdapter
 import com.google.firebase.Timestamp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class FlightsFragment : Fragment() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +33,13 @@ class FlightsFragment : Fragment() {
 
         // getting flights from firebase
         val dbRef = Firebase.firestore
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "FlightsFragment")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Flights")
+        }
+
         val flightRef = dbRef.collection("flights")
         flightRef.get()
             .addOnSuccessListener { flights ->

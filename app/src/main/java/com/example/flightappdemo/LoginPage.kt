@@ -7,6 +7,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
@@ -14,17 +17,27 @@ import com.google.firebase.ktx.Firebase
 
 class LoginPage : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
 
         auth = Firebase.auth
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "LoginPage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Login Page")
+        }
 
         // checking login status
         // if user already logged in navigate to main page
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
+                param(FirebaseAnalytics.Param.METHOD, "email_already_registered")
+            }
             val intent = Intent(this, MainPage::class.java)
             startActivity(intent)
         }
@@ -49,7 +62,9 @@ class LoginPage : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success")
                             Toast.makeText(this, "Login succeed.", Toast.LENGTH_SHORT).show()
-
+                            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
+                                param(FirebaseAnalytics.Param.METHOD, "email_login")
+                            }
                             val intent = Intent(this, MainPage::class.java)
                             startActivity(intent)
                         } else {
@@ -64,6 +79,7 @@ class LoginPage : AppCompatActivity() {
             }
         }
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
         finishAffinity()

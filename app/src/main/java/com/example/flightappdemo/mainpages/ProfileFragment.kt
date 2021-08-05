@@ -19,6 +19,9 @@ import com.example.flightappdemo.MainPage
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelUser
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -26,6 +29,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var auth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +40,12 @@ class ProfileFragment : Fragment() {
 
         val dbRef = Firebase.firestore
         auth = FirebaseAuth.getInstance()
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "ProfileFragment")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Profile")
+        }
 
         var name: String? = ""
         var surname: String? = ""
@@ -64,6 +74,9 @@ class ProfileFragment : Fragment() {
             }
 
         btnProfileLogout.setOnClickListener {
+            firebaseAnalytics.logEvent("Logout_button_click") {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "btnProfileLogout")
+            }
             auth.signOut()
             Toast.makeText(view.context, "Logged out successfully", Toast.LENGTH_SHORT).show()
             val intent = Intent(view.context, LoginPage::class.java)
@@ -153,6 +166,9 @@ class ProfileFragment : Fragment() {
                                         val userRef =
                                             dbRef.collection("users").document(auth.uid.toString())
                                         userRef.set(newUser)
+                                        firebaseAnalytics.logEvent("Update_button_click") {
+                                            param(FirebaseAnalytics.Param.ITEM_NAME, "btnProfileUpdate")
+                                        }
                                         // page transaction
                                         logout()
                                     } catch (e: Exception) {
@@ -175,6 +191,9 @@ class ProfileFragment : Fragment() {
                 } else {
                     val userRef = dbRef.collection("users").document(auth.uid.toString())
                     userRef.set(newUser)
+                    firebaseAnalytics.logEvent("Update_button_click") {
+                        param(FirebaseAnalytics.Param.ITEM_NAME, "btnProfileUpdate")
+                    }
                     Toast.makeText(view?.context, "Updated successfully", Toast.LENGTH_SHORT).show()
                 }
             }

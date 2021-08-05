@@ -47,7 +47,7 @@ class MainPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
 
-        // remote config codes
+        // remote config codes for check updates
         remoteConfig = Firebase.remoteConfig
         val configSettings = remoteConfigSettings {
             minimumFetchIntervalInSeconds = 10
@@ -62,14 +62,15 @@ class MainPage : AppCompatActivity() {
                         this.packageName,
                         0
                     ).versionName
-                    val versionNumRemote = remoteConfig.getString("version_number")
-                    Toast.makeText(
-                        this,
-                        "$versionNumRemote\n$versionNum\n$updated",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    val latestVersion = remoteConfig.getString("latest_version")
+                    val minimumVersion = remoteConfig.getString("minimum_version")
 
-                    if (versionNum != versionNumRemote) {
+                    // if an update available and user among minimum version and latest version
+                    if (versionNum.toDouble() >= minimumVersion.toDouble() && versionNum.toDouble() < latestVersion.toDouble()) {
+                        showAvailableUpdate(remoteConfig.getString("url"))
+                    }
+                    // if an update available and user have older version than minimum
+                    if (versionNum.toDouble() < minimumVersion.toDouble()) {
                         forceUpdate(remoteConfig.getString("url"))
                     }
                 }
@@ -109,6 +110,21 @@ class MainPage : AppCompatActivity() {
         }
     }
 
+    private fun showAvailableUpdate(url: String) {
+        val alert = AlertDialog.Builder(this)
+        alert.setTitle("Güncelleme Mevcut")
+        alert.setMessage("Yeni güncelleme mevcut. Tamam butonuna basarak yeni sürüme güncelleyin.")
+        alert.setNegativeButton("Iptal") { text, listener->
+        }
+        alert.setPositiveButton("Güncelle") { text, listener->
+            val redirectUrl = Uri.parse(url)
+            val intent = Intent(Intent.ACTION_VIEW, redirectUrl)
+            startActivity(intent)
+        }
+        alert.setCancelable(true)
+        alert.show()
+    }
+
     private fun forceUpdate(url: String) {
         val alert = AlertDialog.Builder(this)
         alert.setTitle("Uyarı")
@@ -120,6 +136,7 @@ class MainPage : AppCompatActivity() {
             val redirectUrl = Uri.parse(url)
             val intent = Intent(Intent.ACTION_VIEW, redirectUrl)
             startActivity(intent)
+            finishAffinity()
         }
         alert.setCancelable(false)
         alert.show()

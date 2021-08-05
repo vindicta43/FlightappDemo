@@ -11,10 +11,14 @@ import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelAirport
 import com.example.flightappdemo.utils.AirportsAdapter
 import com.google.firebase.Timestamp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class AirportsFragment : Fragment() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,6 +32,12 @@ class AirportsFragment : Fragment() {
 
         // getting airports from firebase
         val dbRef = Firebase.firestore
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "AirportsFragment")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Airports")
+        }
 
         val airportsRef = dbRef.collection("airports")
         airportsRef.get()
