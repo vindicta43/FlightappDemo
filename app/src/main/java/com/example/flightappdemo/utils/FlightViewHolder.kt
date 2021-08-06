@@ -3,11 +3,11 @@ package com.example.flightappdemo.utils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelFlight
 import java.text.SimpleDateFormat
-import java.util.*
 
 class FlightViewHolder(container: ViewGroup) :
     RecyclerView.ViewHolder(
@@ -50,5 +50,13 @@ class FlightViewHolder(container: ViewGroup) :
         tvFlightCodeDestination.text = modelFlight.flightDestinationCode
         tvFlightBaggageCap.text = modelFlight.flightBaggageCap
         tvFlightDelay.text = modelFlight.flightDelay
+
+        this.itemView.setOnClickListener {
+            Toast.makeText(
+                it.context,
+                "${modelFlight.flightCompany} ${modelFlight.flightDepartureCode} to ${modelFlight.flightDestinationCode}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
