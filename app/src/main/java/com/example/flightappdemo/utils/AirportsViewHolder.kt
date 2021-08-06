@@ -2,11 +2,15 @@ package com.example.flightappdemo.utils
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.flightappdemo.AirportFlights
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelAirport
 import java.text.SimpleDateFormat
@@ -37,6 +41,12 @@ class AirportsViewHolder(container: ViewGroup) : RecyclerView.ViewHolder(
         ivAirportTelephone.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:$airportTelephone")
+            it.context.startActivity(intent)
+        }
+
+        this.itemView.setOnClickListener {
+            val intent = Intent(it.context, AirportFlights::class.java)
+            intent.putExtra("code", modelAirport.airportCode)
             it.context.startActivity(intent)
         }
     }
