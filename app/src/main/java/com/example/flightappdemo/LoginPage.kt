@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -76,6 +78,36 @@ class LoginPage : AppCompatActivity() {
                             ).show()
                         }
                     }
+            }
+        }
+
+        val tvForgotPasswd = findViewById<TextView>(R.id.tvForgotPasswd)
+        tvForgotPasswd.setOnClickListener {
+            // if email field is empty
+            if (email.text.isNullOrEmpty()) {
+                email.requestFocus()
+                val alert = AlertDialog.Builder(this)
+                    .setTitle("Uyarı")
+                    .setMessage("Sıfırlama emaili için yukarıdaki email alanını doldurun.")
+                    .setPositiveButton("Tamam") { text, listener ->
+
+                    }
+                    .setCancelable(true)
+                alert.show()
+            }
+            else {
+                Firebase.auth.sendPasswordResetEmail(email.text.toString()).addOnSuccessListener {
+                    val alert = AlertDialog.Builder(this)
+                        .setTitle("Başarılı")
+                        .setMessage("Sıfırlama emaili gönderildi. Lütfen gelen kutunuzu kontrol edin.")
+                        .setPositiveButton("Tamam") { text, listener ->
+
+                        }
+                        .setCancelable(true)
+                    alert.show()
+                }.addOnFailureListener {
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
