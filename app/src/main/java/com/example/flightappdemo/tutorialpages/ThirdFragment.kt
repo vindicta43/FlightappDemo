@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.example.flightappdemo.LoginPage
 import com.example.flightappdemo.R
 
-
 class ThirdFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,

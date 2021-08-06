@@ -17,14 +17,14 @@ class FlightViewHolder(container: ViewGroup) :
             false
         )
     ) {
-    val tvFlightCompany = itemView.findViewById<TextView>(R.id.tvFlightCompany)
-    val tvFlightDepartureTime = itemView.findViewById<TextView>(R.id.tvFlightDepartureTime)
-    val tvFlightTime = itemView.findViewById<TextView>(R.id.tvFlightTime)
-    val tvFlightDestinationTime = itemView.findViewById<TextView>(R.id.tvFlightDestinationTime)
-    val tvFlightCodeDestination = itemView.findViewById<TextView>(R.id.tvFlightCodeDestination)
-    val tvFlightCodeDeparture = itemView.findViewById<TextView>(R.id.tvFlightCodeDeparture)
-    val tvFlightBaggageCap = itemView.findViewById<TextView>(R.id.tvFlightBaggageCap)
-    val tvFlightDelay = itemView.findViewById<TextView>(R.id.tvFlightDelay)
+    private val tvFlightCompany = itemView.findViewById<TextView>(R.id.tvFlightCompany)
+    private val tvFlightDepartureTime = itemView.findViewById<TextView>(R.id.tvFlightDepartureTime)
+    private val tvFlightTime = itemView.findViewById<TextView>(R.id.tvFlightTime)
+    private val tvFlightDestinationTime = itemView.findViewById<TextView>(R.id.tvFlightDestinationTime)
+    private val tvFlightCodeDestination = itemView.findViewById<TextView>(R.id.tvFlightCodeDestination)
+    private val tvFlightCodeDeparture = itemView.findViewById<TextView>(R.id.tvFlightCodeDeparture)
+    private val tvFlightBaggageCap = itemView.findViewById<TextView>(R.id.tvFlightBaggageCap)
+    private val tvFlightDelay = itemView.findViewById<TextView>(R.id.tvFlightDelay)
 
 
     fun bind(modelFlight: ModelFlight) {

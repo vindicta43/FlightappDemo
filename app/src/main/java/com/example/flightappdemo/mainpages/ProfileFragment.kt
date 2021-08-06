@@ -1,7 +1,6 @@
 package com.example.flightappdemo.mainpages
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -15,7 +14,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.flightappdemo.LoginPage
-import com.example.flightappdemo.MainPage
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelUser
 import com.google.android.material.textfield.TextInputEditText
@@ -152,7 +150,7 @@ class ProfileFragment : Fragment() {
                                         // if password changed uptade
                                         val passField =
                                             view?.findViewById<TextInputEditText>(R.id.etProfilePasswd)
-                                        if (!(passField?.text.toString().isNullOrEmpty())) {
+                                        if (passField?.text.toString().isNotEmpty()) {
                                             user.updatePassword(passField?.text.toString()).addOnCompleteListener {
 
                                             }

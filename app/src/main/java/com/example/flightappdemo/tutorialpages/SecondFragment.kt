@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.flightappdemo.LoginPage
-import com.example.flightappdemo.MainActivity
 import com.example.flightappdemo.R
-
 
 class SecondFragment : Fragment() {
     override fun onCreateView(

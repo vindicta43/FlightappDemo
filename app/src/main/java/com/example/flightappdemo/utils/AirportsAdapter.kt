@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.models.ModelAirport
 
-class AirportsAdapter(val airportList: ArrayList<ModelAirport>): RecyclerView.Adapter<AirportsViewHolder>(){
+class AirportsAdapter(private val airportList: ArrayList<ModelAirport>): RecyclerView.Adapter<AirportsViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AirportsViewHolder {
         return AirportsViewHolder(parent)
     }
