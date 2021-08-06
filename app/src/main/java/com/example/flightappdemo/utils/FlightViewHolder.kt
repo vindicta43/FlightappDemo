@@ -28,22 +28,23 @@ class FlightViewHolder(container: ViewGroup) :
 
 
     fun bind(modelFlight: ModelFlight) {
-        val millisecondsDepart = modelFlight.flightDepartureTime.seconds * 1000 + modelFlight.flightDepartureTime.nanoseconds / 1000000
-        val millisecondsDest = modelFlight.flightDestinationTime.seconds * 1000 + modelFlight.flightDestinationTime.nanoseconds / 1000000
-        val millisecondsFlight = millisecondsDest - millisecondsDepart
+        val departDate = modelFlight.flightDepartureTime.toDate()
+        val destDate = modelFlight.flightDestinationTime.toDate()
 
+        // difference between departure and destination
+        val flightTime = destDate.time - departDate.time
+        val diffHour = (flightTime / 3600000) % 24
+        val diffMin = (flightTime / 60000) % 60
+
+        // formatting to string and 24h format
+        // https://www.geeksforgeeks.org/find-the-duration-of-difference-between-two-dates-in-java/
         val dateFormat = SimpleDateFormat("kk:mm")
-        val newDateDepart = Date(millisecondsDepart)
-        val newDateDest = Date(millisecondsDest)
-        val newDateFlight = Date(millisecondsFlight)
-
-        val departTime = dateFormat.format(newDateDepart).toString()
-        val destTime = dateFormat.format(newDateDest).toString()
-        val flight = dateFormat.format(newDateFlight).toString()
+        val departTime = dateFormat.format(departDate).toString()
+        val destTime = dateFormat.format(destDate).toString()
 
         tvFlightCompany.text = modelFlight.flightCompany
         tvFlightDepartureTime.text = departTime
-        tvFlightTime.text = flight
+        tvFlightTime.text = "${diffHour}h ${diffMin}m"
         tvFlightDestinationTime.text = destTime
         tvFlightCodeDeparture.text = modelFlight.flightDepartureCode
         tvFlightCodeDestination.text = modelFlight.flightDestinationCode
