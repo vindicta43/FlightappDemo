@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReportPage"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_toolbar_background"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"/>
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_semibold"
+            android:text="Send Report"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_alignTop="@id/imageView12"
+            android:layout_alignStart="@id/imageView12"
+            android:layout_alignEnd="@id/imageView12"
+            android:layout_alignBottom="@id/imageView12" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivReportImage"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_below="@id/relativeReport"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_layout"
+        android:padding="1dp" />
+
+    <LinearLayout
+        android:id="@+id/linearReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ivReportImage">
+
+        <Button
+            android:id="@+id/btnPickImage"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/base_blue"
+            android:text="Fotoğraf seç"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnEditImage"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/base_blue"
+            android:text="Fotoğrafı düzenle"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearReport"
+        android:layout_margin="16dp"
+
+        android:hint="Şikayetinizi yazın" />
+
+</RelativeLayout>

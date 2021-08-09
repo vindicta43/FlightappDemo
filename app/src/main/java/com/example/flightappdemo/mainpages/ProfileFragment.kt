@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.flightappdemo.LoginPage
 import com.example.flightappdemo.R
+import com.example.flightappdemo.ReportPage
 import com.example.flightappdemo.models.ModelUser
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -102,6 +103,13 @@ class ProfileFragment : Fragment() {
                 )
             }
         }
+
+        val btnOpenReport = view.findViewById<Button>(R.id.btnOpenReport)
+        btnOpenReport.setOnClickListener {
+            val intent = Intent(view.context, ReportPage::class.java)
+            startActivity(intent)
+        }
+
         return view
     }
 

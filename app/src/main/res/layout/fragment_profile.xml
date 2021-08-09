@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="mainpages.ProfileFragment" >
+    tools:context="mainpages.ProfileFragment">
 
     <ImageView
         android:id="@+id/imageView21"
@@ -15,8 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_flight_background"
-        />
+        app:srcCompat="@drawable/ic_flight_background" />
 
     <ImageView
         android:id="@+id/imageView22"
@@ -25,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView21"
         app:layout_constraintStart_toStartOf="@+id/imageView21"
         app:layout_constraintTop_toBottomOf="@+id/imageView21"
-        app:srcCompat="@drawable/airbus"/>
+        app:srcCompat="@drawable/airbus" />
 
     <TextView
         android:id="@+id/TextView9"
@@ -38,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView21"
         app:layout_constraintEnd_toEndOf="@+id/imageView21"
         app:layout_constraintStart_toStartOf="@+id/imageView21"
-        app:layout_constraintTop_toTopOf="@+id/imageView21"/>
+        app:layout_constraintTop_toTopOf="@+id/imageView21" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/profileNameLayout"
@@ -50,19 +49,19 @@
         android:padding="0dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        tools:layout_editor_absoluteX="16dp"
-        app:layout_constraintTop_toBottomOf="@id/imageView22"
         app:layout_constraintBottom_toTopOf="@id/profileSurnameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/imageView22"
+        tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etProfileName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/gilroy_semibold"
             android:background="@drawable/custom_edit_text"
-            android:ems="10"/>
+            android:ems="10"
+            android:fontFamily="@font/gilroy_semibold" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,19 +75,19 @@
         android:padding="0dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        tools:layout_editor_absoluteX="16dp"
-        app:layout_constraintTop_toBottomOf="@id/profileNameLayout"
         app:layout_constraintBottom_toTopOf="@id/profileMailLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/profileNameLayout"
+        tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etProfileSurname"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/gilroy_semibold"
             android:background="@drawable/custom_edit_text"
-            android:ems="10"/>
+            android:ems="10"
+            android:fontFamily="@font/gilroy_semibold" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,20 +102,20 @@
         android:padding="0dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        tools:layout_editor_absoluteX="16dp"
-        app:layout_constraintTop_toBottomOf="@id/profileSurnameLayout"
         app:layout_constraintBottom_toTopOf="@id/profilePassLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/profileSurnameLayout"
+        tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etProfileMail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/gilroy_semibold"
-            android:inputType="textEmailAddress"
             android:background="@drawable/custom_edit_text"
-            android:ems="10"/>
+            android:ems="10"
+            android:fontFamily="@font/gilroy_semibold"
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,10 +129,10 @@
         android:padding="0dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        app:layout_constraintTop_toBottomOf="@id/profileMailLayout"
-        app:layout_constraintBottom_toTopOf="@id/btnProfileUpdate"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/linearProfile"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileMailLayout"
         app:passwordToggleDrawable="@drawable/custom_password_eye"
         app:passwordToggleEnabled="true"
         tools:layout_editor_absoluteX="16dp">
@@ -142,27 +141,45 @@
             android:id="@+id/etProfilePasswd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/gilroy_semibold"
-            android:inputType="textPassword"
             android:background="@drawable/custom_edit_text"
-            android:ems="10"/>
+            android:ems="10"
+            android:fontFamily="@font/gilroy_semibold"
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btnProfileUpdate"
+    <LinearLayout
+        android:id="@+id/linearProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:backgroundTint="@color/base_blue"
-        android:fontFamily="@font/gilroy_semibold"
-        android:text="Güncelle"
-        android:textAllCaps="false"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profilePassLayout"
-        app:layout_constraintBottom_toBottomOf="@id/btnProfileLogout"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintBottom_toTopOf="@id/btnProfileLogout">
+        <Button
+            android:id="@+id/btnProfileUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:backgroundTint="@color/base_blue"
+            android:fontFamily="@font/gilroy_semibold"
+            android:text="Güncelle"
+            android:layout_weight="1"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnOpenReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:backgroundTint="@color/red"
+            android:fontFamily="@font/gilroy_semibold"
+            android:text="Şikayet"
+            android:layout_weight="1"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnProfileLogout"
@@ -173,10 +190,10 @@
         android:fontFamily="@font/gilroy_semibold"
         android:text="Çıkış Yap"
         android:textAllCaps="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnProfileUpdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearProfile"
         tools:layout_editor_absoluteX="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
