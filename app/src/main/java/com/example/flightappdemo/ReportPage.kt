@@ -1,12 +1,11 @@
 package com.example.flightappdemo
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.database.Cursor
-import android.graphics.ImageDecoder
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -17,18 +16,24 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import iamutkarshtiwari.github.io.ananas.editimage.EditImageActivity
 import iamutkarshtiwari.github.io.ananas.editimage.ImageEditorIntentBuilder
 import java.io.File
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReportPage : AppCompatActivity() {
     private lateinit var imagePath: Uri
     private lateinit var oldPath: Uri
     private lateinit var editResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var pickResultLauncher: ActivityResultLauncher<Intent>
-
-    //    private lateinit var editLauncher: ActivityResultLauncher<Intent>
+    private lateinit var outputPath: String
     private lateinit var ivReportImage: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +73,6 @@ class ReportPage : AppCompatActivity() {
                         .withCropFeature()
                         .withBrightnessFeature()
                         .withSaturationFeature()
-                        .withBeautyFeature()
                         .withStickerFeature()
                         .withEditorTitle("Düzenle")
                         .forcePortrait(true)
@@ -81,8 +85,58 @@ class ReportPage : AppCompatActivity() {
                 }
             }
         }
+
+        val etReport = findViewById<TextInputEditText>(R.id.etReport)
+
+        val btnSendReport = findViewById<Button>(R.id.btnSendReport)
+        btnSendReport.setOnClickListener {
+            if (!etReport.text.isNullOrEmpty()) {
+                val dialog = ProgressDialog(this)
+                try {
+                    val auth = Firebase.auth
+                    val db = Firebase.firestore
+
+                    dialog.setMessage("Gönderiliyor")
+                    dialog.show()
+
+                    // format for email--time name
+                    val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
+                    val now = Date()
+                    var fileName = auth.currentUser?.email + "--" + formatter.format(now)
+                    val storageRef = FirebaseStorage.getInstance().getReference(fileName)
+
+                    // if a photo has selected, empty will be changed
+                    fileName = "empty"
+                    if (this::imagePath.isInitialized) {
+                        fileName = auth.currentUser?.email + "--" + formatter.format(now)
+                        storageRef.putFile(imagePath)
+                            .addOnSuccessListener {
+
+                            }
+                    }
+
+                    val report = hashMapOf(
+                        "sender" to auth.currentUser?.email,
+                        "reportText" to etReport.text.toString(),
+                        "storageLocation" to fileName
+                    )
+                    db.collection("reports")
+                        .add(report)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Şikayetiniz başarıyla gönderildi", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                } catch (e: Exception) {
+                    Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+                    dialog.dismiss()
+                }
+            } else {
+                Toast.makeText(this, "Lütfen bir şikayet metni yazınız", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
+    // all of below are photo editor codes
     private fun setupActivityResultLaunchers() {
         pickResultLauncher = registerForActivityResult(
             StartActivityForResult()
@@ -105,7 +159,6 @@ class ReportPage : AppCompatActivity() {
                         val outputPath = intent.getStringExtra(ImageEditorIntentBuilder.OUTPUT_PATH)
                         imagePath = Uri.fromFile(File(outputPath!!))
                         ivReportImage.setImageURI(imagePath)
-                        imagePath = oldPath
                     } else {
                         ivReportImage.setImageURI(oldPath)
                     }

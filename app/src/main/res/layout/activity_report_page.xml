@@ -76,12 +76,39 @@
 
     </LinearLayout>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/reportLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linearReport"
         android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterEnabled="true">
 
-        android:hint="Şikayetinizi yazın" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearReport"
+            android:background="@drawable/custom_edit_text"
+            android:hint="Şikayetinizi yazın"
+            android:maxLength="140" />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/btnSendReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reportLayout"
+        android:layout_alignEnd="@id/reportLayout"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/base_blue"
+        android:text="Gönder"
+        android:textAllCaps="false" />
 </RelativeLayout>
