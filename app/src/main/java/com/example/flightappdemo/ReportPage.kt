@@ -3,8 +3,10 @@ package com.example.flightappdemo
 import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.ImageDecoder
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -22,9 +24,11 @@ import java.lang.Exception
 
 class ReportPage : AppCompatActivity() {
     private lateinit var imagePath: Uri
+    private lateinit var oldPath: Uri
     private lateinit var editResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var pickResultLauncher: ActivityResultLauncher<Intent>
 
+    //    private lateinit var editLauncher: ActivityResultLauncher<Intent>
     private lateinit var ivReportImage: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +52,7 @@ class ReportPage : AppCompatActivity() {
             val imageSrc: Drawable? = ivReportImage.drawable
             // if image doesn't selected
             if (imageSrc == null) {
-                Toast.makeText(this, "Önce bir resim seçin", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Önce bir fotoğraf seçin", Toast.LENGTH_SHORT).show()
             } else {
                 try {
                     val outputFile = generateEditFile()
@@ -70,7 +74,6 @@ class ReportPage : AppCompatActivity() {
                         .forcePortrait(true)
                         .setSupportActionBarVisibility(false)
                         .build()
-                    setResult(RESULT_OK, intent)
                     EditImageActivity.start(editResultLauncher, intent, this)
                 } catch (e: Exception) {
                     Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
@@ -87,7 +90,7 @@ class ReportPage : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val intent = result.data
                 imagePath = intent?.data!!
-                Toast.makeText(this, "pickResultLauncher", Toast.LENGTH_SHORT).show()
+                oldPath = intent.data!!
             }
         }
 
@@ -102,8 +105,9 @@ class ReportPage : AppCompatActivity() {
                         val outputPath = intent.getStringExtra(ImageEditorIntentBuilder.OUTPUT_PATH)
                         imagePath = Uri.fromFile(File(outputPath!!))
                         ivReportImage.setImageURI(imagePath)
+                        imagePath = oldPath
                     } else {
-                        imagePath = result.data?.data!!
+                        ivReportImage.setImageURI(oldPath)
                     }
                 }
             } catch (e: Exception) {
