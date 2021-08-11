@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.flightappdemo.ResultPage
+import com.example.flightappdemo.pages.ResultPage
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelAirport
 

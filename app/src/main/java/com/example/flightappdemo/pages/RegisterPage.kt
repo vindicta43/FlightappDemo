@@ -1,10 +1,11 @@
-package com.example.flightappdemo
+package com.example.flightappdemo.pages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelUser
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.analytics.FirebaseAnalytics

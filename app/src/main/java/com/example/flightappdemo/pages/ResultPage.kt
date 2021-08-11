@@ -1,10 +1,11 @@
-package com.example.flightappdemo
+package com.example.flightappdemo.pages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelFlight
 import com.example.flightappdemo.utils.FlightAdapter
 import com.google.firebase.Timestamp

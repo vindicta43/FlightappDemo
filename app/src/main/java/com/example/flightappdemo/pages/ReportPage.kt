@@ -1,4 +1,4 @@
-package com.example.flightappdemo
+package com.example.flightappdemo.pages
 
 import android.app.Activity
 import android.app.ProgressDialog
@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import com.example.flightappdemo.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore

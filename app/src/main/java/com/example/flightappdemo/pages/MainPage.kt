@@ -1,4 +1,4 @@
-package com.example.flightappdemo
+package com.example.flightappdemo.pages
 
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +9,7 @@ import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.example.flightappdemo.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase

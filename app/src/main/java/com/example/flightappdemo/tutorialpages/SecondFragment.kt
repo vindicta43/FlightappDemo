@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.flightappdemo.LoginPage
+import com.example.flightappdemo.pages.LoginPage
 import com.example.flightappdemo.R
 
 class SecondFragment : Fragment() {

@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.example.flightappdemo.pages.LoginPage
 import com.example.flightappdemo.tutorialpages.FirstFragment
 import com.example.flightappdemo.tutorialpages.SecondFragment
 import com.example.flightappdemo.tutorialpages.ThirdFragment
