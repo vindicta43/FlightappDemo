@@ -35,6 +35,18 @@
             android:layout_alignStart="@id/imageView16"
             android:layout_alignEnd="@id/imageView16"
             android:layout_alignBottom="@id/imageView16" />
+
+        <ImageButton
+            android:id="@+id/ibAirportQR"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="48dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_qr_code_scanner" />
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

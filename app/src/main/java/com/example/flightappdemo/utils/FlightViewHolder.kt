@@ -1,11 +1,13 @@
 package com.example.flightappdemo.utils
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
+import com.example.flightappdemo.ResultPage
 import com.example.flightappdemo.models.ModelFlight
 import java.text.SimpleDateFormat
 
@@ -52,11 +54,9 @@ class FlightViewHolder(container: ViewGroup) :
         tvFlightDelay.text = modelFlight.flightDelay
 
         this.itemView.setOnClickListener {
-            Toast.makeText(
-                it.context,
-                "${modelFlight.flightCompany} ${modelFlight.flightDepartureCode} to ${modelFlight.flightDestinationCode}",
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(it.context, ResultPage::class.java)
+            intent.putExtra("id", modelFlight.id)
+            it.context.startActivity(intent)
         }
     }
 }

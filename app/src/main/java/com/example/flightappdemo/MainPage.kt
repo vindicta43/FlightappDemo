@@ -22,6 +22,7 @@ import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.google.zxing.integration.android.IntentIntegrator
 
 class MainPage : AppCompatActivity() {
     // firebase auth instance
@@ -160,6 +161,22 @@ class MainPage : AppCompatActivity() {
         transaction.replace(R.id.containerFragment, frag)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    // get the qr results
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
+            } else {
+                val intent = Intent(this, ResultPage::class.java)
+                intent.putExtra("id", result.contents)
+                startActivity(intent)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 }
 

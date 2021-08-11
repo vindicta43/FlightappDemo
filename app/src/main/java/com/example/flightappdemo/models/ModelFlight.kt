@@ -8,4 +8,5 @@ data class ModelFlight(
     val flightDestinationCode: String,
     val flightDepartureTime: com.google.firebase.Timestamp,
     val flightDestinationTime: com.google.firebase.Timestamp,
+    val id: String
 )

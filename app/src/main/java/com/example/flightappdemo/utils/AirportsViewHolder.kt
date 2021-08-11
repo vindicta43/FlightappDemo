@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.flightappdemo.AirportFlights
+import com.example.flightappdemo.ResultPage
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelAirport
 
@@ -40,8 +40,8 @@ class AirportsViewHolder(container: ViewGroup) : RecyclerView.ViewHolder(
         }
 
         this.itemView.setOnClickListener {
-            val intent = Intent(it.context, AirportFlights::class.java)
-            intent.putExtra("code", modelAirport.airportCode)
+            val intent = Intent(it.context, ResultPage::class.java)
+            intent.putExtra("id", modelAirport.id)
             it.context.startActivity(intent)
         }
     }

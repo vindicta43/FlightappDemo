@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AirportFlights"
+    tools:context=".ResultPage"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -24,11 +24,11 @@
             />
 
         <TextView
-            android:id="@+id/tvAirportFlights"
+            android:id="@+id/tvResultPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gilroy_semibold"
-            android:text="AirportFlights"
+            android:text="ResultPage"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:gravity="center"
@@ -41,7 +41,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerAirportFlights"
+        android:id="@+id/recyclerResult"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="16dp">

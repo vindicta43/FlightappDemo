@@ -7,4 +7,5 @@ data class ModelAirport(
     val airportTelephone: String,
     val latitude: String,
     val longitude: String,
+    val id: String
 )
