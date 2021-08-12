@@ -8,11 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import com.example.flightappdemo.pages.LoginPage
 import com.example.flightappdemo.R
-import com.example.flightappdemo.pages.ReportPage
-import com.example.flightappdemo.pages.EditProfilePage
-import com.example.flightappdemo.pages.UserCardsPage
+import com.example.flightappdemo.pages.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -62,6 +59,13 @@ class ProfileFragment : Fragment() {
             val intent = Intent(view.context, UserCardsPage::class.java)
             startActivity(intent)
         }
+
+        val btnShowFlights = view.findViewById<Button>(R.id.btnShowFlights)
+        btnShowFlights.setOnClickListener {
+            val intent = Intent(view.context, UserFlightsPage::class.java)
+            startActivity(intent)
+        }
+
         return view
     }
 
