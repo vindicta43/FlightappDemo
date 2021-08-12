@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/singleCardItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:elevation="4dp"
+        app:cardUseCompatPadding="true" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/ImageView14"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/chip"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvCardName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tvCardName"
+                android:fontFamily="@font/gilroy_light"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="80dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvCardNumber"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kart numarası"
+                android:fontFamily="@font/gilroy_bold"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintStart_toStartOf="@id/tvCardNumber"
+                app:layout_constraintBottom_toTopOf="@id/tvCardNumber"/>
+
+            <TextView
+                android:id="@+id/tvCardNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0000 1111 2222 3333"
+                android:fontFamily="@font/gilroy_medium"
+                android:layout_marginBottom="12dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvCardName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valid"
+                android:fontFamily="@font/gilroy_bold"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintStart_toStartOf="@id/tvCardValidDate"
+                app:layout_constraintBottom_toTopOf="@id/tvCardValidDate"/>
+
+            <TextView
+                android:id="@+id/tvCardValidDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01/23"
+                android:fontFamily="@font/gilroy_medium"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintStart_toEndOf="@id/tvCardNumber"
+                app:layout_constraintTop_toTopOf="@id/tvCardNumber"
+                app:layout_constraintBottom_toBottomOf="@id/tvCardNumber"
+                app:layout_constraintEnd_toStartOf="@id/tvCardCvv"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CVV"
+                android:fontFamily="@font/gilroy_bold"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintStart_toStartOf="@id/tvCardCvv"
+                app:layout_constraintBottom_toTopOf="@id/tvCardCvv"/>
+
+            <TextView
+                android:id="@+id/tvCardCvv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="111"
+                android:fontFamily="@font/gilroy_medium"
+                android:layout_marginEnd="48dp"
+                app:layout_constraintStart_toEndOf="@id/tvCardValidDate"
+                app:layout_constraintTop_toTopOf="@id/tvCardValidDate"
+                app:layout_constraintBottom_toBottomOf="@id/tvCardValidDate"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightappDemo">
         <activity
+            android:name=".pages.UserFlightsPage"
+            android:exported="true" />
+        <activity
+            android:name=".pages.UserCardsPage"
+            android:exported="true" />
+        <activity
             android:name=".pages.EditProfilePage"
             android:exported="true" />
         <activity

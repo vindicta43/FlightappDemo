@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="mainpages.AirportsFragment"
-    android:orientation="vertical">
+    tools:context=".pages.UserCardsPage">
 
     <RelativeLayout
+        android:id="@+id/relativeUserCards"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:id="@+id/imageView16"
+            android:id="@+id/imageView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
@@ -23,38 +23,26 @@
             android:layout_alignParentTop="true"/>
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gilroy_semibold"
-            android:text="Airports"
+            android:text="My Cards"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:gravity="center"
-            android:layout_alignTop="@id/imageView16"
-            android:layout_alignStart="@id/imageView16"
-            android:layout_alignEnd="@id/imageView16"
-            android:layout_alignBottom="@id/imageView16" />
-
-        <ImageButton
-            android:id="@+id/ibAirportQR"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="48dp"
-            android:background="@android:color/transparent"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_qr_code_scanner" />
+            android:layout_alignTop="@id/imageView13"
+            android:layout_alignStart="@id/imageView13"
+            android:layout_alignEnd="@id/imageView13"
+            android:layout_alignBottom="@id/imageView13" />
 
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerAirports"
+        android:id="@+id/recyclerUserCards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp">
+        android:layout_margin="8dp"
+        android:layout_below="@id/relativeUserCards"/>
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-</LinearLayout>
+</RelativeLayout>
