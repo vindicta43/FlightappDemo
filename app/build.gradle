@@ -56,6 +56,9 @@ dependencies {
     // photo edit
     implementation 'com.github.iamutkarshtiwari:Ananas:1.2.6'
 
+    // masked edittext
+    implementation 'ru.egslava:MaskedEditText:1.0.5'
+
     // firebase
     implementation platform('com.google.firebase:firebase-bom:28.3.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
