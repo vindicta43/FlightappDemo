@@ -38,7 +38,8 @@ class UserFlightsPage : AppCompatActivity() {
                         ModelFlightBought(
                             bought.get("flight").toString(),
                             bought.get("id").toString(),
-                            bought.get("boughtDate") as Timestamp
+                            bought.get("boughtDate") as Timestamp,
+                            bought.get("price").toString().toInt()
                         )
                     )
                 }
@@ -58,7 +59,8 @@ class UserFlightsPage : AppCompatActivity() {
                                         flight.get("flightDestinationCode").toString(),
                                         flight.get("flightDepartureTime") as Timestamp,
                                         flight.get("flightDestinationTime") as Timestamp,
-                                        flight.get("id").toString()
+                                        flight.get("id").toString(),
+                                        flight.get("price").toString().toInt()
                                     )
                                 )
                             }

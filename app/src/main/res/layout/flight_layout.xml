@@ -155,6 +155,26 @@
                 app:layout_constraintTop_toBottomOf="@id/space" />
 
             <ImageView
+                android:id="@+id/ImageView35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_money"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvFlightDelay"
+                app:layout_constraintTop_toBottomOf="@id/space" />
+
+            <TextView
+                android:id="@+id/tvFlightPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="tvPrice"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ImageView35"
+                app:layout_constraintTop_toBottomOf="@id/space" />
+
+            <ImageView
                 android:id="@+id/imageView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

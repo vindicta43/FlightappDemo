@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.pages.ResultPage
 import com.example.flightappdemo.models.ModelFlight
+import com.example.flightappdemo.pages.PurchasePage
 import java.text.SimpleDateFormat
 
 class FlightViewHolder(container: ViewGroup) :
@@ -26,6 +27,7 @@ class FlightViewHolder(container: ViewGroup) :
     private val tvFlightCodeDeparture = itemView.findViewById<TextView>(R.id.tvFlightCodeDeparture)
     private val tvFlightBaggageCap = itemView.findViewById<TextView>(R.id.tvFlightBaggageCap)
     private val tvFlightDelay = itemView.findViewById<TextView>(R.id.tvFlightDelay)
+    private val tvFlightPrice = itemView.findViewById<TextView>(R.id.tvFlightPrice)
 
 
     fun bind(modelFlight: ModelFlight) {
@@ -51,10 +53,10 @@ class FlightViewHolder(container: ViewGroup) :
         tvFlightCodeDestination.text = modelFlight.flightDestinationCode
         tvFlightBaggageCap.text = modelFlight.flightBaggageCap
         tvFlightDelay.text = modelFlight.flightDelay
+        tvFlightPrice.text = modelFlight.price.toString()
 
         this.itemView.setOnClickListener {
-            val intent = Intent(it.context, ResultPage::class.java)
-            intent.putExtra("id", modelFlight.id)
+            val intent = Intent(it.context, PurchasePage::class.java)
             it.context.startActivity(intent)
         }
     }

@@ -1,11 +1,13 @@
 package com.example.flightappdemo.utils
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelFlight
+import com.example.flightappdemo.pages.BoughtDetailsPage
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 
@@ -26,6 +28,7 @@ class FlightBoughtViewHolder(container: ViewGroup) :
     private val tvBoughtFlightBaggageCap = itemView.findViewById<TextView>(R.id.tvBoughtFlightBaggageCap)
     private val tvBoughtFlightDelay = itemView.findViewById<TextView>(R.id.tvBoughtFlightDelay)
     private val tvBoughtDate = itemView.findViewById<TextView>(R.id.tvBoughtDate)
+    private val tvBoughtPrice = itemView.findViewById<TextView>(R.id.tvBoughtPrice)
 
     fun bind(modelFlight: ModelFlight, boughtDate: ArrayList<Timestamp>, position: Int) {
         val departDate = modelFlight.flightDepartureTime.toDate()
@@ -51,9 +54,11 @@ class FlightBoughtViewHolder(container: ViewGroup) :
         tvBoughtFlightBaggageCap.text = modelFlight.flightBaggageCap
         tvBoughtFlightDelay.text = modelFlight.flightDelay
         tvBoughtDate.text = boughtDate[position].toDate().toString()
+        tvBoughtPrice.text = modelFlight.price.toString()
 
         this.itemView.setOnClickListener {
-
+            val intent = Intent(it.context, BoughtDetailsPage::class.java)
+            it.context.startActivity(intent)
         }
     }
 }

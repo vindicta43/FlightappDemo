@@ -17,12 +17,14 @@ class CardsViewHolder(container: ViewGroup): RecyclerView.ViewHolder(LayoutInfla
     val tvCardValidDate = itemView.findViewById<TextView>(R.id.tvCardValidDate)
     val tvCardCvv = itemView.findViewById<TextView>(R.id.tvCardCvv)
     val singleCardItem = itemView.findViewById<CardView>(R.id.singleCardItem)
+    val tvBalance = itemView.findViewById<TextView>(R.id.tvBalance)
 
     fun bind(modelCard: ModelCard, position: Int) {
         tvCardName.text = modelCard.cardName
         tvCardNumber.text = modelCard.cardNumber
         tvCardValidDate.text = modelCard.validDate
         tvCardCvv.text = modelCard.cvv
+        tvBalance.text = modelCard.balance.toString()
 
         val colorCode = position % 3
         // colorful card backgrounds

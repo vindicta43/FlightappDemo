@@ -5,5 +5,6 @@ data class ModelCard(
     val cardNumber: String,
     val validDate: String,
     val cvv: String,
-    val id: String
+    val id: String,
+    val balance: Int
 )

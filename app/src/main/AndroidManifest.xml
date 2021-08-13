@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightappDemo">
         <activity
+            android:name=".pages.BoughtDetailsPage"
+            android:exported="true" />
+        <activity
+            android:name=".pages.PurchasePage"
+            android:exported="true" />
+        <activity
             android:name=".pages.UserFlightsPage"
             android:exported="true" />
         <activity

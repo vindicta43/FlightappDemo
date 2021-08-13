@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pages.PurchasePage">
+
+    <RelativeLayout
+        android:id="@+id/relativeReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_toolbar_background"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"/>
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_semibold"
+            android:text="Purchase"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_alignTop="@id/imageView30"
+            android:layout_alignStart="@id/imageView30"
+            android:layout_alignEnd="@id/imageView30"
+            android:layout_alignBottom="@id/imageView30" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

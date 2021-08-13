@@ -68,7 +68,8 @@ class ResultPage : AppCompatActivity() {
                                 flight.get("flightDestinationCode").toString(),
                                 flight.get("flightDepartureTime") as Timestamp,
                                 flight.get("flightDestinationTime") as Timestamp,
-                                flight.get("id").toString()
+                                flight.get("id").toString(),
+                                flight.get("price").toString().toInt()
                             )
                             // filling arrayList
                             flightsList.add(flightObj)
@@ -96,7 +97,8 @@ class ResultPage : AppCompatActivity() {
                         flight.get("flightDestinationCode").toString(),
                         flight.get("flightDepartureTime") as Timestamp,
                         flight.get("flightDestinationTime") as Timestamp,
-                        flight.get("id").toString()
+                        flight.get("id").toString(),
+                        flight.get("price").toString().toInt()
                     )
                     // filling arrayList
                     flightsList.add(flightObj)

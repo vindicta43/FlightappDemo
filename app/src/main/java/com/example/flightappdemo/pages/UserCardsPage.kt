@@ -29,7 +29,8 @@ class UserCardsPage : AppCompatActivity() {
                             card.get("cardNumber").toString(),
                             card.get("cardValid").toString(),
                             card.get("cardCvv").toString(),
-                            card.get("id").toString()
+                            card.get("id").toString(),
+                            card.get("balance").toString().toInt()
                         )
                     )
                 }
