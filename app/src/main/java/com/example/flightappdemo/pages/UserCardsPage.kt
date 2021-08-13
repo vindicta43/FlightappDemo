@@ -21,7 +21,7 @@ class UserCardsPage : AppCompatActivity() {
         val cardsRef = dbRef.collection("users/${auth.uid}/cards")
         cardsRef.get()
             .addOnSuccessListener { cards ->
-                var cardsList = arrayListOf<ModelCard>()
+                val cardsList = arrayListOf<ModelCard>()
                 for (card in cards) {
                     cardsList.add(
                         ModelCard(

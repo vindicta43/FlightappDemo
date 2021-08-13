@@ -118,9 +118,9 @@ class MainPage : AppCompatActivity() {
         val alert = AlertDialog.Builder(this)
         alert.setTitle("Güncelleme Mevcut")
         alert.setMessage("Yeni güncelleme mevcut. Tamam butonuna basarak yeni sürüme güncelleyin.")
-        alert.setNegativeButton("Iptal") { text, listener->
+        alert.setNegativeButton("Iptal") { _, _ ->
         }
-        alert.setPositiveButton("Güncelle") { text, listener->
+        alert.setPositiveButton("Güncelle") { _, _ ->
             val redirectUrl = Uri.parse(url)
             val intent = Intent(Intent.ACTION_VIEW, redirectUrl)
             startActivity(intent)
@@ -133,10 +133,10 @@ class MainPage : AppCompatActivity() {
         val alert = AlertDialog.Builder(this)
         alert.setTitle("Uyarı")
         alert.setMessage("Uygulamanız güncel değil. Lütfen en son sürüme güncelleyin.")
-        alert.setNegativeButton("Iptal") { text, listener->
+        alert.setNegativeButton("Iptal") { _, _ ->
             finishAffinity()
         }
-        alert.setPositiveButton("Güncelle") { text, listener->
+        alert.setPositiveButton("Güncelle") { _, _ ->
             val redirectUrl = Uri.parse(url)
             val intent = Intent(Intent.ACTION_VIEW, redirectUrl)
             startActivity(intent)

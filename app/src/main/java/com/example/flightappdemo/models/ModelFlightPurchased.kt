@@ -1,8 +1,7 @@
 package com.example.flightappdemo.models
 
-data class ModelFlightBought(
+data class ModelFlightPurchased(
     val flight: String,
-    val id: String,
     val boughtDate: com.google.firebase.Timestamp,
     val price: Int,
     val cardId: String

@@ -1,5 +1,6 @@
 package com.example.flightappdemo.utils
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -31,6 +32,7 @@ class FirebaseService: FirebaseMessagingService() {
         sendNotification(p0)
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     private fun sendNotification(message: RemoteMessage) {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

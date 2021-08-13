@@ -1,5 +1,6 @@
 package com.example.flightappdemo.pages
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -48,6 +49,7 @@ class ResultPage : AppCompatActivity() {
             }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun listAirportFlights(id: String?) {
         val dbRef = Firebase.firestore
         var airportRef = dbRef.collection("airports").whereEqualTo("id", id)
@@ -83,6 +85,7 @@ class ResultPage : AppCompatActivity() {
             }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun listFlight(id: String?) {
         val dbRef = Firebase.firestore
         val flightsRef = dbRef.collection("flights").whereEqualTo("id", id)

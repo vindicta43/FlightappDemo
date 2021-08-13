@@ -1,5 +1,6 @@
 package com.example.flightappdemo.utils
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class FlightBoughtViewHolder(container: ViewGroup) :
     private val tvBoughtDate = itemView.findViewById<TextView>(R.id.tvBoughtDate)
     private val tvBoughtPrice = itemView.findViewById<TextView>(R.id.tvBoughtPrice)
 
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     fun bind(modelFlight: ModelFlight, boughtDate: ArrayList<Timestamp>, position: Int) {
         val departDate = modelFlight.flightDepartureTime.toDate()
         val destDate = modelFlight.flightDestinationTime.toDate()

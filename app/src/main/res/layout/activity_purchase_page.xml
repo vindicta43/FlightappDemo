@@ -7,7 +7,7 @@
     tools:context=".pages.PurchasePage">
 
     <RelativeLayout
-        android:id="@+id/relativeReport"
+        android:id="@+id/relativePurchase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,5 +39,389 @@
             android:layout_alignEnd="@id/imageView30"
             android:layout_alignBottom="@id/imageView30" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="Flight Details"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvPurchaseDate"
+        app:layout_constraintTop_toBottomOf="@id/relativePurchase"/>
+
+    <TextView
+        android:id="@+id/tvPurchaseDate"
+        android:text=""
+        android:fontFamily="@font/gilroy_semibold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textView17"
+        app:layout_constraintBottom_toTopOf="@id/cardPurchase"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPurchase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:elevation="4dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toBottomOf="@id/tvPurchaseDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvPurchaseFlightCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:fontFamily="@font/gilroy_bold"
+                android:text=""
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPurchaseFlightDepartureTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:fontFamily="@font/gilroy_extra_bold"
+                android:text=""
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/space3"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPurchaseFlightTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gilroy_light"
+                android:text=""
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/tvPurchaseFlightDestinationTime"
+                app:layout_constraintStart_toEndOf="@+id/tvPurchaseFlightDepartureTime"
+                app:layout_constraintTop_toTopOf="@+id/tvPurchaseFlightDepartureTime" />
+
+            <TextView
+                android:id="@+id/tvPurchaseFlightDestinationTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/gilroy_extra_bold"
+                android:text=""
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/space3"
+                app:layout_constraintTop_toTopOf="@+id/tvPurchaseFlightTime"
+                app:layout_constraintEnd_toStartOf="@id/guideline3"
+                app:layout_constraintStart_toEndOf="@id/tvPurchaseFlightTime" />
+
+            <TextView
+                android:id="@+id/tvPurchaseFlightCodeDestination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text=""
+                android:textSize="16sp"
+                android:fontFamily="@font/gilroy_extra_bold"
+                app:layout_constraintBottom_toTopOf="@+id/imageView31"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPurchaseFlightCodeDeparture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text=""
+                android:textSize="16sp"
+                android:fontFamily="@font/gilroy_extra_bold"
+                app:layout_constraintBottom_toTopOf="@+id/space3"
+                app:layout_constraintEnd_toEndOf="@id/tvPurchaseFlightCodeDestination"
+                app:layout_constraintStart_toStartOf="@id/tvPurchaseFlightCodeDestination"
+                app:layout_constraintTop_toBottomOf="@+id/imageView31" />
+
+            <ImageView
+                android:id="@+id/imageView31"
+                android:layout_width="24dp"
+                android:layout_height="48dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:src="@drawable/view_dash_vertical"
+                app:layout_constraintBottom_toTopOf="@+id/tvPurchaseFlightCodeDeparture"
+                app:layout_constraintEnd_toEndOf="@id/tvPurchaseFlightCodeDestination"
+                app:layout_constraintStart_toStartOf="@id/tvPurchaseFlightCodeDestination"
+                app:layout_constraintTop_toBottomOf="@+id/tvPurchaseFlightCodeDestination" />
+
+            <View
+                android:id="@+id/space3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"
+                app:layout_constraintBottom_toTopOf="@id/imageView32"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPurchaseFlightCodeDeparture" />
+
+            <ImageView
+                android:id="@+id/imageView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_bag"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/space3" />
+
+            <TextView
+                android:id="@+id/tvPurchaseFlightBaggageCap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageView32"
+                app:layout_constraintTop_toBottomOf="@id/space3" />
+
+            <ImageView
+                android:id="@+id/ImageView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_delay"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvPurchaseFlightBaggageCap"
+                app:layout_constraintTop_toBottomOf="@id/space3" />
+
+            <TextView
+                android:id="@+id/tvPurchaseFlightDelay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ImageView33"
+                app:layout_constraintTop_toBottomOf="@id/space3" />
+
+            <ImageView
+                android:id="@+id/ImageView38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_money"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvPurchaseFlightDelay"
+                app:layout_constraintTop_toBottomOf="@id/space3" />
+
+            <TextView
+                android:id="@+id/tvPurchaseFlightPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ImageView38"
+                app:layout_constraintTop_toBottomOf="@id/space3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="116dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="Bought with"
+        android:layout_marginStart="20dp"
+        android:layout_marginVertical="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardPurchase"
+        app:layout_constraintBottom_toTopOf="@id/cardCredit"/>
+
+    <Spinner
+        android:id="@+id/spCards"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginVertical="4dp"
+        app:layout_constraintTop_toBottomOf="@id/textView18"
+        app:layout_constraintBottom_toTopOf="@id/cardCredit"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardCredit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:elevation="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginHorizontal="8dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spCards">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ImageView34"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/chip"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvPurchaseCardName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:fontFamily="@font/gilroy_light"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="80dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvPurchaseCardNumber"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kart numarası"
+                android:fontFamily="@font/gilroy_bold"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintStart_toStartOf="@id/tvPurchaseCardNumber"
+                app:layout_constraintBottom_toTopOf="@id/tvPurchaseCardNumber"/>
+
+            <TextView
+                android:id="@+id/tvPurchaseCardNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:fontFamily="@font/gilroy_medium"
+                android:layout_marginBottom="12dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvPurchaseCardName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valid"
+                android:fontFamily="@font/gilroy_bold"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintStart_toStartOf="@id/tvPurchaseCardValidDate"
+                app:layout_constraintBottom_toTopOf="@id/tvPurchaseCardValidDate"/>
+
+            <TextView
+                android:id="@+id/tvPurchaseCardValidDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:fontFamily="@font/gilroy_medium"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintStart_toEndOf="@id/tvPurchaseCardNumber"
+                app:layout_constraintTop_toTopOf="@id/tvPurchaseCardNumber"
+                app:layout_constraintBottom_toBottomOf="@id/tvPurchaseCardNumber"
+                app:layout_constraintEnd_toStartOf="@id/tvPurchaseCardCvv"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CVV"
+                android:fontFamily="@font/gilroy_bold"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintStart_toStartOf="@id/tvPurchaseCardCvv"
+                app:layout_constraintBottom_toTopOf="@id/tvPurchaseCardCvv"/>
+
+            <TextView
+                android:id="@+id/tvPurchaseCardCvv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:fontFamily="@font/gilroy_medium"
+                android:layout_marginEnd="48dp"
+                app:layout_constraintStart_toEndOf="@id/tvPurchaseCardValidDate"
+                app:layout_constraintTop_toTopOf="@id/tvPurchaseCardValidDate"
+                app:layout_constraintBottom_toBottomOf="@id/tvPurchaseCardValidDate"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/TextView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Balance"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/gilroy_bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvPurchaseCardCvv"/>
+
+            <TextView
+                android:id="@+id/tvPurchaseBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/gilroy_medium"
+                app:layout_constraintStart_toStartOf="@id/tvPurchaseCardCvv"
+                app:layout_constraintTop_toBottomOf="@id/TextView19"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnPurchase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:backgroundTint="@color/base_blue"
+        android:fontFamily="@font/gilroy_semibold"
+        android:text="Satın al"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnCancel"/>
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:backgroundTint="@color/red"
+        android:fontFamily="@font/gilroy_semibold"
+        android:text="Iptal"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

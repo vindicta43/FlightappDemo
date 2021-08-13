@@ -2,14 +2,12 @@ package com.example.flightappdemo.pages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelFlight
-import com.example.flightappdemo.models.ModelFlightBought
+import com.example.flightappdemo.models.ModelFlightPurchased
 import com.example.flightappdemo.utils.FlightBoughtAdapter
-import com.example.flightappdemo.utils.FlightBoughtViewHolder
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Query
@@ -23,7 +21,7 @@ class UserFlightsPage : AppCompatActivity() {
 
         val recyclerUserFlights = findViewById<RecyclerView>(R.id.recyclerUserFlights)
         recyclerUserFlights.layoutManager = LinearLayoutManager(this)
-        val boughtList = arrayListOf<ModelFlightBought>()
+        val boughtList = arrayListOf<ModelFlightPurchased>()
         val flightList = arrayListOf<ModelFlight>()
 
         val dbRef = Firebase.firestore
@@ -35,9 +33,8 @@ class UserFlightsPage : AppCompatActivity() {
             .addOnSuccessListener { boughts ->
                 for (bought in boughts) {
                     boughtList.add(
-                        ModelFlightBought(
+                        ModelFlightPurchased(
                             bought.get("flight").toString(),
-                            bought.get("id").toString(),
                             bought.get("boughtDate") as Timestamp,
                             bought.get("price").toString().toInt(),
                             bought.get("cardId").toString()
@@ -68,10 +65,11 @@ class UserFlightsPage : AppCompatActivity() {
                         }
                         .addOnCompleteListener {
                             val boughtDates = arrayListOf<Timestamp>()
-                            boughtList.forEach { iter ->
-                                boughtDates.add(iter.boughtDate)
+                            boughtList.forEach {
+                                boughtDates.add(it.boughtDate)
                             }
-                            recyclerUserFlights.adapter = FlightBoughtAdapter(flightList, boughtDates)
+                            recyclerUserFlights.adapter =
+                                FlightBoughtAdapter(flightList, boughtDates)
                         }
                 }
             }

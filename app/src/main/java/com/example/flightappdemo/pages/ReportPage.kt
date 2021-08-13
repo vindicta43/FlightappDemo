@@ -34,7 +34,6 @@ class ReportPage : AppCompatActivity() {
     private lateinit var oldPath: Uri
     private lateinit var editResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var pickResultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var outputPath: String
     private lateinit var ivReportImage: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

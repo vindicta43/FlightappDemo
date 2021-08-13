@@ -66,7 +66,6 @@ class FlightsFragment : Fragment() {
                 .setOrientationLocked(false)
                 .initiateScan()
         }
-
         return view
     }
 }

@@ -98,19 +98,19 @@ class EditProfilePage : AppCompatActivity() {
             alert.setTitle("Uyarı")
             alert.setMessage("Bilgileriniz güncellenecektir. Onaylıyor musunuz?")
             alert.setCancelable(false)
-            alert.setPositiveButton("Evet") { text, listener ->
+            alert.setPositiveButton("Evet") { _, _ ->
                 // if email changed or password changed
                 if (funEmail != auth.currentUser?.email || password.text.toString().isNotEmpty()) {
                     // new alert dialog for validate password
                     alert.setTitle("Onayla")
                     alert.setMessage("Bilgilerinizi değiştirmek için parolanızı girin")
                     val input = EditText(this)
-                    input.setHint("Parola")
+                    input.hint = "Parola"
                     input.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
                     input.transformationMethod = PasswordTransformationMethod.getInstance()
                     alert.setView(input)
 
-                    alert.setPositiveButton("Onayla") { text, listener ->
+                    alert.setPositiveButton("Onayla") { _, _ ->
                         val authEmail = auth.currentUser?.email.toString()
                         val authPass = input.text.toString()
                         val credential = EmailAuthProvider.getCredential(authEmail, authPass)
@@ -153,7 +153,7 @@ class EditProfilePage : AppCompatActivity() {
                                 }
                             }
                     }
-                    alert.setNegativeButton("Iptal") { text, listener ->
+                    alert.setNegativeButton("Iptal") { _, _ ->
                         Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
                     }
                     alert.show()
@@ -167,7 +167,7 @@ class EditProfilePage : AppCompatActivity() {
                     finish()
                 }
             }
-            alert.setNegativeButton("Hayır") { text, listener ->
+            alert.setNegativeButton("Hayır") { _, _ ->
 
             }
             alert.show()
@@ -176,7 +176,7 @@ class EditProfilePage : AppCompatActivity() {
             alert.setTitle("Uyarı")
             alert.setMessage("Hiçbir bilgi değiştirilmedi.")
             alert.setCancelable(false)
-            alert.setPositiveButton("Tamam") { text, listener ->
+            alert.setPositiveButton("Tamam") { _, _ ->
             }
             alert.show()
         }
@@ -188,7 +188,7 @@ class EditProfilePage : AppCompatActivity() {
         alert.setTitle("Başarılı")
         alert.setMessage("Bilgileriniz güncellendi. Yeniden giriş yapmanız gerekli.")
         alert.setCancelable(false)
-        alert.setPositiveButton("Tamam") { text, listener ->
+        alert.setPositiveButton("Tamam") { _, _ ->
             val intent = Intent(this, LoginPage::class.java)
             startActivity(intent)
             auth.signOut()

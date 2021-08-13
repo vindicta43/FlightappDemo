@@ -1,12 +1,12 @@
 package com.example.flightappdemo.utils
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
-import com.example.flightappdemo.pages.ResultPage
 import com.example.flightappdemo.models.ModelFlight
 import com.example.flightappdemo.pages.PurchasePage
 import java.text.SimpleDateFormat
@@ -30,6 +30,7 @@ class FlightViewHolder(container: ViewGroup) :
     private val tvFlightPrice = itemView.findViewById<TextView>(R.id.tvFlightPrice)
 
 
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     fun bind(modelFlight: ModelFlight) {
         val departDate = modelFlight.flightDepartureTime.toDate()
         val destDate = modelFlight.flightDestinationTime.toDate()
@@ -57,6 +58,7 @@ class FlightViewHolder(container: ViewGroup) :
 
         this.itemView.setOnClickListener {
             val intent = Intent(it.context, PurchasePage::class.java)
+            intent.putExtra("flightId", modelFlight.id)
             it.context.startActivity(intent)
         }
     }

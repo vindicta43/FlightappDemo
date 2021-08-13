@@ -12,12 +12,12 @@ import com.example.flightappdemo.models.ModelCard
 class CardsViewHolder(container: ViewGroup): RecyclerView.ViewHolder(LayoutInflater.from(container.context).inflate(
     R.layout.single_card_layout, container, false)) {
 
-    val tvCardName = itemView.findViewById<TextView>(R.id.tvCardName)
-    val tvCardNumber = itemView.findViewById<TextView>(R.id.tvCardNumber)
-    val tvCardValidDate = itemView.findViewById<TextView>(R.id.tvCardValidDate)
-    val tvCardCvv = itemView.findViewById<TextView>(R.id.tvCardCvv)
-    val singleCardItem = itemView.findViewById<CardView>(R.id.singleCardItem)
-    val tvBalance = itemView.findViewById<TextView>(R.id.tvBalance)
+    private val tvCardName = itemView.findViewById<TextView>(R.id.tvCardName)
+    private val tvCardNumber = itemView.findViewById<TextView>(R.id.tvCardNumber)
+    private val tvCardValidDate = itemView.findViewById<TextView>(R.id.tvCardValidDate)
+    private val tvCardCvv = itemView.findViewById<TextView>(R.id.tvCardCvv)
+    private val singleCardItem = itemView.findViewById<CardView>(R.id.singleCardItem)
+    private val tvBalance = itemView.findViewById<TextView>(R.id.tvBalance)
 
     fun bind(modelCard: ModelCard, position: Int) {
         tvCardName.text = modelCard.cardName
@@ -26,9 +26,8 @@ class CardsViewHolder(container: ViewGroup): RecyclerView.ViewHolder(LayoutInfla
         tvCardCvv.text = modelCard.cvv
         tvBalance.text = modelCard.balance.toString()
 
-        val colorCode = position % 3
         // colorful card backgrounds
-        when(colorCode) {
+        when(position % 3) {
             0 -> singleCardItem.setCardBackgroundColor(Color.rgb(100, 160, 255))
             1 -> singleCardItem.setCardBackgroundColor(Color.rgb(75, 135, 255))
             2 -> singleCardItem.setCardBackgroundColor(Color.rgb(50, 110, 255))

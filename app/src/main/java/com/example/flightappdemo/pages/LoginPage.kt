@@ -89,7 +89,7 @@ class LoginPage : AppCompatActivity() {
                 val alert = AlertDialog.Builder(this)
                     .setTitle("Uyarı")
                     .setMessage("Sıfırlama emaili için yukarıdaki email alanını doldurun.")
-                    .setPositiveButton("Tamam") { text, listener ->
+                    .setPositiveButton("Tamam") { _, _ ->
 
                     }
                     .setCancelable(true)
@@ -100,7 +100,7 @@ class LoginPage : AppCompatActivity() {
                     val alert = AlertDialog.Builder(this)
                         .setTitle("Başarılı")
                         .setMessage("Sıfırlama emaili gönderildi. Lütfen gelen kutunuzu kontrol edin.")
-                        .setPositiveButton("Tamam") { text, listener ->
+                        .setPositiveButton("Tamam") { _, _ ->
 
                         }
                         .setCancelable(true)
