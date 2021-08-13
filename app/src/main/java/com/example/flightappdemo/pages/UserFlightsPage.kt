@@ -39,7 +39,8 @@ class UserFlightsPage : AppCompatActivity() {
                             bought.get("flight").toString(),
                             bought.get("id").toString(),
                             bought.get("boughtDate") as Timestamp,
-                            bought.get("price").toString().toInt()
+                            bought.get("price").toString().toInt(),
+                            bought.get("cardId").toString()
                         )
                     )
                 }

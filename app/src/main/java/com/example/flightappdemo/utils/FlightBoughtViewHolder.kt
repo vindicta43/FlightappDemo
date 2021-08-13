@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelFlight
-import com.example.flightappdemo.pages.BoughtDetailsPage
+import com.example.flightappdemo.pages.PurchaseDetailsPage
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 
@@ -57,7 +57,10 @@ class FlightBoughtViewHolder(container: ViewGroup) :
         tvBoughtPrice.text = modelFlight.price.toString()
 
         this.itemView.setOnClickListener {
-            val intent = Intent(it.context, BoughtDetailsPage::class.java)
+            val intent = Intent(it.context, PurchaseDetailsPage::class.java)
+            intent.putExtra("date", boughtDate[position].toDate().toString())
+            intent.putExtra("flightId", modelFlight.id)
+            //intent.putExtra("cardId", modelFlight.)
             it.context.startActivity(intent)
         }
     }
