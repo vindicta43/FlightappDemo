@@ -52,10 +52,9 @@ class EditProfilePage : AppCompatActivity() {
                 surname = allData?.get("surname").toString()
                 email = allData?.get("email").toString()
 
-                etProfileName.text = Editable.Factory.getInstance().newEditable(name.toString())
-                etProfileSurname.text =
-                    Editable.Factory.getInstance().newEditable(surname.toString())
-                etProfileMail.text = Editable.Factory.getInstance().newEditable(email.toString())
+                etProfileName.setText(name.toString())
+                etProfileSurname.setText(surname.toString())
+                etProfileMail.setText(email.toString())
             }
 
         val btnProfileUpdate = findViewById<Button>(R.id.btnProfileUpdate)
@@ -83,6 +82,7 @@ class EditProfilePage : AppCompatActivity() {
             }
         }
     }
+
     private fun createAlert(
         isChanged: Boolean,
         funId: String?,

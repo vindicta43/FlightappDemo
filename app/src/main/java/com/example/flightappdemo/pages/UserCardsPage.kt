@@ -1,7 +1,9 @@
 package com.example.flightappdemo.pages
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
@@ -46,5 +48,11 @@ class UserCardsPage : AppCompatActivity() {
                 recyclerUserCards.layoutManager = LinearLayoutManager(this)
                 recyclerUserCards.adapter = CardsAdapter(cardsList)
             }
+
+        val ibAddCard = findViewById<ImageButton>(R.id.ibAddCard)
+        ibAddCard.setOnClickListener {
+            val intent = Intent(this, AddCardPage::class.java)
+            startActivity(intent)
+        }
     }
 }
