@@ -37,7 +37,7 @@ class PurchasePage : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     val cardObj = ModelCard(
                         card.get("cardName").toString(),
                         card.get("cardNumber").toString(),
-                        card.get("cardValid").toString(),
+                        card.get("cardValidDate").toString(),
                         card.get("cardCvv").toString(),
                         card.get("id").toString(),
                         card.get("balance").toString().toInt()
@@ -133,8 +133,8 @@ class PurchasePage : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     ModelCard(
                         cardsList[0].cardName,
                         cardsList[0].cardNumber,
-                        cardsList[0].validDate,
-                        cardsList[0].cvv,
+                        cardsList[0].cardValidDate,
+                        cardsList[0].cardCvv,
                         cardsList[0].id,
                         balance-price
                     )
@@ -173,8 +173,8 @@ class PurchasePage : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         tvPurchaseCardName.text = cardsList[position].cardName
         tvPurchaseCardNumber.text = cardsList[position].cardNumber
-        tvPurchaseCardValidDate.text = cardsList[position].validDate
-        tvPurchaseCardCvv.text = cardsList[position].cvv
+        tvPurchaseCardValidDate.text = cardsList[position].cardValidDate
+        tvPurchaseCardCvv.text = cardsList[position].cardCvv
         tvPurchaseBalance.text = cardsList[position].balance.toString()
     }
 

@@ -77,7 +77,7 @@ class PurchaseDetailsPage : AppCompatActivity() {
                         for (card in cards) {
                             tvPurchaseDetailCardName.text = card.get("cardName").toString()
                             tvPurchaseDetailCardNumber.text = card.get("cardNumber").toString()
-                            tvPurchaseDetailCardValidDate.text = card.get("cardValid").toString()
+                            tvPurchaseDetailCardValidDate.text = card.get("cardValidDate").toString()
                             tvPurchaseDetailCardCvv.text = card.get("cardCvv").toString()
                             tvPurchaseDetailBalance.text = card.get("balance").toString()
                         }

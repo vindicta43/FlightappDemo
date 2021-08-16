@@ -29,8 +29,8 @@ class CardsViewHolder(container: ViewGroup): RecyclerView.ViewHolder(LayoutInfla
     fun bind(modelCard: ModelCard, position: Int) {
         tvCardName.text = modelCard.cardName
         tvCardNumber.text = modelCard.cardNumber
-        tvCardValidDate.text = modelCard.validDate
-        tvCardCvv.text = modelCard.cvv
+        tvCardValidDate.text = modelCard.cardValidDate
+        tvCardCvv.text = modelCard.cardCvv
         tvBalance.text = modelCard.balance.toString()
 
         // colorful card backgrounds
