@@ -12,6 +12,7 @@ import com.example.flightappdemo.utils.FlightAdapter
 import com.google.firebase.Timestamp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -20,7 +21,6 @@ class ResultPage : AppCompatActivity() {
 
     //private val recyclerResult = findViewById<RecyclerView>(R.id.recyclerResult)
     private lateinit var recyclerResult: RecyclerView
-
 
     // flights list for recyclerView adapter
     private val flightsList = arrayListOf<ModelFlight>()
@@ -33,6 +33,10 @@ class ResultPage : AppCompatActivity() {
         val dbRef = Firebase.firestore
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "ResultPage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Result")
+        }
 
         val itemID = intent.getStringExtra("id")
         val resultsRef = dbRef.collection("flights").whereEqualTo("id", itemID)

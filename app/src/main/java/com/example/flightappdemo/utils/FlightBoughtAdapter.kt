@@ -2,22 +2,20 @@ package com.example.flightappdemo.utils
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.flightappdemo.models.ModelFlight
-import com.google.firebase.Timestamp
+import com.example.flightappdemo.models.ModelFlightPurchased
 
 class FlightBoughtAdapter(
-    private val flightsList: ArrayList<ModelFlight>,
-    private val boughtDate: ArrayList<Timestamp>
+    private val boughtList: ArrayList<ModelFlightPurchased>,
 ) : RecyclerView.Adapter<FlightBoughtViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightBoughtViewHolder {
         return FlightBoughtViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: FlightBoughtViewHolder, position: Int) {
-        holder.bind(flightsList[position], boughtDate, position)
+        holder.bind(boughtList[position])
     }
 
     override fun getItemCount(): Int {
-        return flightsList.size
+        return boughtList.size
     }
 }

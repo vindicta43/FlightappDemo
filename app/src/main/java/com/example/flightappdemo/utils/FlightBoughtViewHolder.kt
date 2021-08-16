@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
-import com.example.flightappdemo.models.ModelFlight
+import com.example.flightappdemo.models.ModelFlightPurchased
 import com.example.flightappdemo.pages.PurchaseDetailsPage
-import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 
 class FlightBoughtViewHolder(container: ViewGroup) :
@@ -32,7 +31,7 @@ class FlightBoughtViewHolder(container: ViewGroup) :
     private val tvBoughtPrice = itemView.findViewById<TextView>(R.id.tvBoughtPrice)
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
-    fun bind(modelFlight: ModelFlight, boughtDate: ArrayList<Timestamp>, position: Int) {
+    fun bind(modelFlight: ModelFlightPurchased) {
         val departDate = modelFlight.flightDepartureTime.toDate()
         val destDate = modelFlight.flightDestinationTime.toDate()
 
@@ -55,13 +54,13 @@ class FlightBoughtViewHolder(container: ViewGroup) :
         tvBoughtFlightCodeDeparture.text = modelFlight.flightDestinationCode
         tvBoughtFlightBaggageCap.text = modelFlight.flightBaggageCap
         tvBoughtFlightDelay.text = modelFlight.flightDelay
-        tvBoughtDate.text = boughtDate[position].toDate().toString()
+        tvBoughtDate.text = modelFlight.boughtDate.toDate().toString()
         tvBoughtPrice.text = modelFlight.price.toString()
 
         this.itemView.setOnClickListener {
             val intent = Intent(it.context, PurchaseDetailsPage::class.java)
-            intent.putExtra("date", boughtDate[position].toDate().toString())
-            intent.putExtra("flightId", modelFlight.id)
+            intent.putExtra("date", modelFlight.boughtDate.toDate().toString())
+            intent.putExtra("flightId", modelFlight.flight)
             //intent.putExtra("cardId", modelFlight.)
             it.context.startActivity(intent)
         }

@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelCard
 import com.example.flightappdemo.utils.CardsAdapter
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,6 +19,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class UserCardsPage : AppCompatActivity() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var auth: FirebaseAuth
     private lateinit var dbRef: FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +29,12 @@ class UserCardsPage : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "UserCardsPage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "My Cards")
+        }
+
 
         auth = Firebase.auth
         dbRef = Firebase.firestore
@@ -51,6 +61,9 @@ class UserCardsPage : AppCompatActivity() {
 
         val ibAddCard = findViewById<ImageButton>(R.id.ibAddCard)
         ibAddCard.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "ibAddCard")
+            }
             val intent = Intent(this, AddCardPage::class.java)
             startActivity(intent)
         }

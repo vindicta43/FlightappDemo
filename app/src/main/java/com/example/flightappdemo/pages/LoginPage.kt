@@ -3,7 +3,6 @@ package com.example.flightappdemo.pages
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -61,8 +60,6 @@ class LoginPage : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInWithEmail:success")
                             Toast.makeText(this, "Login succeed.", Toast.LENGTH_SHORT).show()
                             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
                                 param(FirebaseAnalytics.Param.METHOD, "email_login")
@@ -70,8 +67,6 @@ class LoginPage : AppCompatActivity() {
                             val intent = Intent(this, MainPage::class.java)
                             startActivity(intent)
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInWithEmail:failure", task.exception)
                             Toast.makeText(
                                 baseContext, "${task.exception?.message}",
                                 Toast.LENGTH_SHORT

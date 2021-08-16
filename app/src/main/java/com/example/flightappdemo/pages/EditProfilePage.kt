@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.widget.Button
@@ -33,6 +32,10 @@ class EditProfilePage : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "EditProfilePage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Edit Profile")
+        }
 
         var name: String? = ""
         var surname: String? = ""

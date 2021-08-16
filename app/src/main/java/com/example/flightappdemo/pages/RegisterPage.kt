@@ -2,7 +2,6 @@ package com.example.flightappdemo.pages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import com.example.flightappdemo.R
@@ -65,9 +64,6 @@ class RegisterPage : AppCompatActivity() {
                         auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(this) { task ->
                                 if (task.isSuccessful) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("TAG", "createUserWithEmail:success")
-
                                     // user object
                                     val userObj = ModelUser(auth.uid, name, surname, email)
 
@@ -82,8 +78,6 @@ class RegisterPage : AppCompatActivity() {
                                         .show()
                                     this.finish()
                                 } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("TAG", "createUserWithEmail:failure", task.exception)
                                     Toast.makeText(
                                         this,
                                         "${task.exception?.message}",

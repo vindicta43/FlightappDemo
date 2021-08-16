@@ -11,11 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelAirport
 import com.example.flightappdemo.utils.AirportsAdapter
+import com.example.flightappdemo.utils.QrScanner
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.zxing.integration.android.IntentIntegrator
 
 class AirportsFragment : Fragment() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +33,11 @@ class AirportsFragment : Fragment() {
 
         // getting airports from firebase
         val dbRef = Firebase.firestore
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "AirportsFragment")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Airports")
+        }
 
         val airportsRef = dbRef.collection("airports")
         airportsRef.get()
@@ -52,11 +61,7 @@ class AirportsFragment : Fragment() {
 
         val ibAirportQR = view.findViewById<ImageButton>(R.id.ibAirportQR)
         ibAirportQR.setOnClickListener {
-            val scanner = IntentIntegrator(this.activity)
-            scanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-                .setBeepEnabled(false)
-                .setOrientationLocked(false)
-                .initiateScan()
+            QrScanner(this.activity)
         }
         return view
     }

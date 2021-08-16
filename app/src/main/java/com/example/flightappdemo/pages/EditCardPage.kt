@@ -1,11 +1,9 @@
 package com.example.flightappdemo.pages
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
@@ -13,12 +11,16 @@ import br.com.sapereaude.maskedEditText.MaskedEditText
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelCard
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 class EditCardPage : AppCompatActivity() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var dbRef: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var cardId: String
@@ -28,6 +30,12 @@ class EditCardPage : AppCompatActivity() {
 
         dbRef = FirebaseFirestore.getInstance()
         auth = Firebase.auth
+
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "EditCardPage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Edit Card")
+        }
 
         // textview
         val tvEditCardName = findViewById<TextView>(R.id.tvEditCardName)
@@ -97,6 +105,10 @@ class EditCardPage : AppCompatActivity() {
                             )
                         )
                         .addOnSuccessListener {
+                            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                                param(FirebaseAnalytics.Param.ITEM_NAME, "btnCardEditUpdate")
+                            }
+
                             val dialog = AlertDialog.Builder(this)
                                 .setCancelable(false)
                                 .setTitle("Başarılı")
@@ -120,6 +132,10 @@ class EditCardPage : AppCompatActivity() {
                     cardId = intent.getStringExtra("cardId")!!
                     dbRef.collection("users/${auth.uid}/cards").document(cardId).delete()
                         .addOnSuccessListener {
+                            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                                param(FirebaseAnalytics.Param.ITEM_NAME, "btnCardEditDelete")
+                            }
+
                             val dialog = AlertDialog.Builder(this)
                                 .setCancelable(false)
                                 .setTitle("Başarılı")
@@ -139,6 +155,9 @@ class EditCardPage : AppCompatActivity() {
 
         val btnCardEditCancel = findViewById<Button>(R.id.btnCardEditCancel)
         btnCardEditCancel.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "btnCardEditCancel")
+            }
             finish()
         }
     }
@@ -183,6 +202,7 @@ class EditCardPage : AppCompatActivity() {
     }
 
     // format database string
+    // removes '/' and spaces
     private fun formatInput(get: Any?): CharSequence {
         var outputString = get.toString()
         outputString = outputString.replace(" ", "").replace("/", "")

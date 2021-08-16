@@ -4,22 +4,31 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import br.com.sapereaude.maskedEditText.MaskedEditText
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelCard
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import java.util.*
 
 class AddCardPage : AppCompatActivity() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_card_page)
+
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "AddCardPage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Add Card")
+        }
 
         // textview
         val tvAddCardName = findViewById<TextView>(R.id.tvAddCardName)
@@ -80,6 +89,10 @@ class AddCardPage : AppCompatActivity() {
                         )
                     )
                     .addOnCompleteListener {
+                        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                            param(FirebaseAnalytics.Param.ITEM_NAME, "btnCardAdd")
+                        }
+
                         val dialog = AlertDialog.Builder(this)
                             .setTitle("Başarılı")
                             .setCancelable(false)
@@ -94,6 +107,9 @@ class AddCardPage : AppCompatActivity() {
 
         val btnCancelAdd = findViewById<Button>(R.id.btnCancelAdd)
         btnCancelAdd.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "btnCancelAdd")
+            }
             finish()
         }
     }

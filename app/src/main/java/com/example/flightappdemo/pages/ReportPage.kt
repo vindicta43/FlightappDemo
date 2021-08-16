@@ -18,6 +18,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import com.example.flightappdemo.R
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -30,6 +33,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ReportPage : AppCompatActivity() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var imagePath: Uri
     private lateinit var oldPath: Uri
     private lateinit var editResultLauncher: ActivityResultLauncher<Intent>
@@ -40,11 +44,19 @@ class ReportPage : AppCompatActivity() {
         setContentView(R.layout.activity_report_page)
         // init result launchers
         setupActivityResultLaunchers()
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "ReportPage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Report")
+        }
 
         ivReportImage = findViewById(R.id.ivReportImage)
 
         val btnPickImage = findViewById<Button>(R.id.btnPickImage)
         btnPickImage.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "btnPickImage")
+            }
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             pickResultLauncher.launch(intent)
@@ -53,6 +65,9 @@ class ReportPage : AppCompatActivity() {
 
         val btnEditImage = findViewById<Button>(R.id.btnEditImage)
         btnEditImage.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "btnEditImage")
+            }
             ivReportImage = findViewById(R.id.ivReportImage)
             val imageSrc: Drawable? = ivReportImage.drawable
             // if image doesn't selected
@@ -93,6 +108,9 @@ class ReportPage : AppCompatActivity() {
             if (!etReport.text.isNullOrEmpty()) {
                 val dialog = ProgressDialog(this)
                 try {
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                        param(FirebaseAnalytics.Param.ITEM_NAME, "btnSendReport")
+                    }
                     val auth = Firebase.auth
                     val db = Firebase.firestore
 

@@ -11,18 +11,29 @@ import com.example.flightappdemo.models.ModelCard
 import com.example.flightappdemo.models.ModelFlight
 import com.example.flightappdemo.models.ModelFlightPurchased
 import com.google.firebase.Timestamp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 
 class PurchasePage : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var cardsList: ArrayList<ModelCard>
+    private var cardIndex: Int = 0
 
     @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_purchase_page)
+
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "PurchasePage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Purchase")
+        }
 
         val dbRef = FirebaseFirestore.getInstance()
         val auth = Firebase.auth
@@ -126,16 +137,23 @@ class PurchasePage : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         flightId!!,
                         Timestamp.now(),
                         price,
-                        cardsList[0].id
+                        cardsList[cardIndex].id,
+                        flightsList[0].flightBaggageCap,
+                        flightsList[0].flightCompany,
+                        flightsList[0].flightDelay,
+                        flightsList[0].flightDepartureCode,
+                        flightsList[0].flightDestinationCode,
+                        flightsList[0].flightDepartureTime,
+                        flightsList[0].flightDestinationTime,
                     )
                 // reduce balance
-                dbRef.collection("users/${auth.uid}/cards").document(cardsList[0].id).set(
+                dbRef.collection("users/${auth.uid}/cards").document(cardsList[cardIndex].id).set(
                     ModelCard(
-                        cardsList[0].cardName,
-                        cardsList[0].cardNumber,
-                        cardsList[0].cardValidDate,
-                        cardsList[0].cardCvv,
-                        cardsList[0].id,
+                        cardsList[cardIndex].cardName,
+                        cardsList[cardIndex].cardNumber,
+                        cardsList[cardIndex].cardValidDate,
+                        cardsList[cardIndex].cardCvv,
+                        cardsList[cardIndex].id,
                         balance-price
                     )
                 )
@@ -143,6 +161,10 @@ class PurchasePage : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 // purchase flight
                 dbRef.collection("users/${auth.uid}/flights").document().set(purchasedFlight)
                     .addOnSuccessListener {
+                        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                            param(FirebaseAnalytics.Param.ITEM_NAME, "btnPurchase")
+                        }
+
                         val dialog = AlertDialog.Builder(this)
                             .setTitle("Başarılı")
                             .setMessage("Uçuş satın alındı. Profilinizdeki uçuşlarım sekmesinden uçuşunuzun detaylarını görüntüleyebilirsiniz.")
@@ -176,6 +198,8 @@ class PurchasePage : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         tvPurchaseCardValidDate.text = cardsList[position].cardValidDate
         tvPurchaseCardCvv.text = cardsList[position].cardCvv
         tvPurchaseBalance.text = cardsList[position].balance.toString()
+
+        cardIndex = position
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

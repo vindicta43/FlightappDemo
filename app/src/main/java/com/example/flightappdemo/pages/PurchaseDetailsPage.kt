@@ -6,15 +6,25 @@ import android.os.Bundle
 import android.widget.TextView
 import com.example.flightappdemo.R
 import com.google.firebase.Timestamp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 
 class PurchaseDetailsPage : AppCompatActivity() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_purchase_details_page)
+
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "PurchaseDetailsPage")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Purchase Details")
+        }
 
         // flight details view implementation
         val tvPurchaseDetailDate = findViewById<TextView>(R.id.tvPurchaseDetailDate)

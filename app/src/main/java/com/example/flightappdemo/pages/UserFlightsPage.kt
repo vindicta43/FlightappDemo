@@ -5,10 +5,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightappdemo.R
-import com.example.flightappdemo.models.ModelFlight
 import com.example.flightappdemo.models.ModelFlightPurchased
 import com.example.flightappdemo.utils.FlightBoughtAdapter
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -22,7 +20,6 @@ class UserFlightsPage : AppCompatActivity() {
         val recyclerUserFlights = findViewById<RecyclerView>(R.id.recyclerUserFlights)
         recyclerUserFlights.layoutManager = LinearLayoutManager(this)
         val boughtList = arrayListOf<ModelFlightPurchased>()
-        val flightList = arrayListOf<ModelFlight>()
 
         val dbRef = Firebase.firestore
         val auth = Firebase.auth
@@ -32,46 +29,23 @@ class UserFlightsPage : AppCompatActivity() {
         boughtRef.get()
             .addOnSuccessListener { boughts ->
                 for (bought in boughts) {
-                    boughtList.add(
-                        ModelFlightPurchased(
-                            bought.get("flight").toString(),
-                            bought.get("boughtDate") as Timestamp,
-                            bought.get("price").toString().toInt(),
-                            bought.get("cardId").toString()
-                        )
+                    val boughtObj = ModelFlightPurchased(
+                        bought.get("flight").toString(),
+                        bought.getTimestamp("boughtDate")!!,
+                        bought.get("price").toString().toInt(),
+                        bought.get("cardId").toString(),
+                        bought.get("flightBaggageCap").toString(),
+                        bought.get("flightCompany").toString(),
+                        bought.get("flightDelay").toString(),
+                        bought.get("flightDepartureCode").toString(),
+                        bought.get("flightDestinationCode").toString(),
+                        bought.getTimestamp("flightDepartureTime")!!,
+                        bought.getTimestamp("flightDestinationTime")!!,
                     )
+                    boughtList.add(boughtObj)
                 }
-            }
-            .addOnCompleteListener {
-                for (bought in boughtList) {
-                    val flightRef = dbRef.collection("flights").whereEqualTo("id", bought.flight)
-                    flightRef.get()
-                        .addOnSuccessListener { flights ->
-                            for (flight in flights) {
-                                flightList.add(
-                                    ModelFlight(
-                                        flight.get("flightBaggageCap").toString(),
-                                        flight.get("flightCompany").toString(),
-                                        flight.get("flightDelay").toString(),
-                                        flight.get("flightDepartureCode").toString(),
-                                        flight.get("flightDestinationCode").toString(),
-                                        flight.get("flightDepartureTime") as Timestamp,
-                                        flight.get("flightDestinationTime") as Timestamp,
-                                        flight.get("id").toString(),
-                                        flight.get("price").toString().toInt()
-                                    )
-                                )
-                            }
-                        }
-                        .addOnCompleteListener {
-                            val boughtDates = arrayListOf<Timestamp>()
-                            boughtList.forEach {
-                                boughtDates.add(it.boughtDate)
-                            }
-                            recyclerUserFlights.adapter =
-                                FlightBoughtAdapter(flightList, boughtDates)
-                        }
-                }
+            }.addOnCompleteListener {
+                recyclerUserFlights.adapter = FlightBoughtAdapter(boughtList)
             }
     }
 }

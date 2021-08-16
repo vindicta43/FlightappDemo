@@ -30,15 +30,25 @@ class ProfileFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "ProfileFragment")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Profile")
+        }
 
         val btnNavigateUpdate = view.findViewById<Button>(R.id.btnNavigateUpdate)
         btnNavigateUpdate.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "btnNavigateUpdate")
+            }
             val intent = Intent(view.context, EditProfilePage::class.java)
             startActivity(intent)
         }
 
         val btnOpenReport = view.findViewById<Button>(R.id.btnOpenReport)
         btnOpenReport.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "btnOpenReport")
+            }
             val intent = Intent(view.context, ReportPage::class.java)
             startActivity(intent)
         }
@@ -56,12 +66,18 @@ class ProfileFragment : Fragment() {
 
         val btnShowCards = view.findViewById<Button>(R.id.btnShowCards)
         btnShowCards.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "btnShowCards")
+            }
             val intent = Intent(view.context, UserCardsPage::class.java)
             startActivity(intent)
         }
 
         val btnShowFlights = view.findViewById<Button>(R.id.btnShowFlights)
         btnShowFlights.setOnClickListener {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_NAME, "btnShowFlights")
+            }
             val intent = Intent(view.context, UserFlightsPage::class.java)
             startActivity(intent)
         }
