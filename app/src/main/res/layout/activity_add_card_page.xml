@@ -34,7 +34,7 @@
             android:layout_alignBottom="@id/imageView15"
             android:fontFamily="@font/gilroy_semibold"
             android:gravity="center"
-            android:text="Edit Card"
+            android:text="Add Card"
             android:textColor="@android:color/white"
             android:textSize="24sp" />
 

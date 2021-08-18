@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import br.com.sapereaude.maskedEditText.MaskedEditText
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelCard
+import com.example.flightappdemo.utils.AlertBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -109,14 +110,8 @@ class EditCardPage : AppCompatActivity() {
                                 param(FirebaseAnalytics.Param.ITEM_NAME, "btnCardEditUpdate")
                             }
 
-                            val dialog = AlertDialog.Builder(this)
-                                .setCancelable(false)
-                                .setTitle("Başarılı")
-                                .setMessage("Kartınız başarıyla güncellendi.")
-                                .setPositiveButton("Tamam") { _, _ ->
-                                    finish()
-                                }
-                            dialog.show()
+                            AlertBuilder("Başarılı", "Kartınız başarıyla güncellendi.", "Tamam")
+                                .show(this, true)
                         }
                 }
             dialog.show()
@@ -136,14 +131,8 @@ class EditCardPage : AppCompatActivity() {
                                 param(FirebaseAnalytics.Param.ITEM_NAME, "btnCardEditDelete")
                             }
 
-                            val dialog = AlertDialog.Builder(this)
-                                .setCancelable(false)
-                                .setTitle("Başarılı")
-                                .setMessage("Kartınız başarıyla silindi.")
-                                .setPositiveButton("Tamam") { _, _ ->
-                                    finish()
-                                }
-                            dialog.show()
+                            AlertBuilder("Başarılı", "Kartınız başarıyla silindi.", "Tamam")
+                                .show(this, true)
                         }
                 }
                 .setNegativeButton("Hayır") { _, _ ->

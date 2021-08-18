@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import com.example.flightappdemo.R
+import com.example.flightappdemo.utils.AlertBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -141,15 +142,16 @@ class ReportPage : AppCompatActivity() {
                     db.collection("reports")
                         .add(report)
                         .addOnSuccessListener {
-                            Toast.makeText(this, "Şikayetiniz başarıyla gönderildi", Toast.LENGTH_SHORT).show()
-                            finish()
+                            AlertBuilder("Başarılı", "Şikayetiniz başarıyla gönderildi.", "Tamam", isCancelable = false)
+                                .show(this, true)
                         }
                 } catch (e: Exception) {
                     Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
                     dialog.dismiss()
                 }
             } else {
-                Toast.makeText(this, "Lütfen bir şikayet metni yazınız", Toast.LENGTH_SHORT).show()
+                AlertBuilder("Hata","Lütfen bir şikayet metni yazınız.", "Tamam")
+                    .show(this)
             }
         }
     }

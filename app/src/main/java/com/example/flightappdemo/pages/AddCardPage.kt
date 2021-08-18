@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import br.com.sapereaude.maskedEditText.MaskedEditText
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelCard
+import com.example.flightappdemo.utils.AlertBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -65,12 +66,7 @@ class AddCardPage : AppCompatActivity() {
                 etAddCardNumber.text.isNullOrEmpty() ||
                 etAddCardValidDate.text.isNullOrEmpty()
             ) {
-                val dialog = AlertDialog.Builder(this)
-                    .setTitle("Uyarı")
-                    .setCancelable(true)
-                    .setMessage("Lütfen boş yerleri tamamlayınız.")
-                    .setPositiveButton("Tamam") { _, _ -> }
-                dialog.show()
+                AlertBuilder("Uyarı", "Lütfen boş yerleri tamamlayınız", "Tamam").show(this)
             } else {
                 val auth = Firebase.auth
                 val dbRef = FirebaseFirestore.getInstance()
@@ -93,14 +89,11 @@ class AddCardPage : AppCompatActivity() {
                             param(FirebaseAnalytics.Param.ITEM_NAME, "btnCardAdd")
                         }
 
-                        val dialog = AlertDialog.Builder(this)
-                            .setTitle("Başarılı")
-                            .setCancelable(false)
-                            .setMessage("Kartınız başarıyla eklendi. Kartlarım menüsünden kartınızı görüntüleyebilirsiniz")
-                            .setPositiveButton("Tamam") { _, _ ->
-                                finish()
-                            }
-                        dialog.show()
+                        AlertBuilder(
+                            "Başarılı",
+                            "Kartınız başarıyla eklendi. Kartlarım menüsünden kartınızı görüntüleyebilirsiniz",
+                            "Tamam"
+                        ).show(this, true)
                     }
             }
         }

@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.flightappdemo.R
+import com.example.flightappdemo.utils.AlertBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -60,7 +61,13 @@ class LoginPage : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Login succeed.", Toast.LENGTH_SHORT).show()
+                            AlertBuilder(
+                                "Başarılı",
+                                "Giriş başarılı.",
+                                "Tamam",
+                                isCancelable = false
+                            )
+                                .show(this)
                             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
                                 param(FirebaseAnalytics.Param.METHOD, "email_login")
                             }
@@ -81,25 +88,19 @@ class LoginPage : AppCompatActivity() {
             // if email field is empty
             if (email.text.isNullOrEmpty()) {
                 email.requestFocus()
-                val alert = AlertDialog.Builder(this)
-                    .setTitle("Uyarı")
-                    .setMessage("Sıfırlama emaili için yukarıdaki email alanını doldurun.")
-                    .setPositiveButton("Tamam") { _, _ ->
-
-                    }
-                    .setCancelable(true)
-                alert.show()
-            }
-            else {
+                AlertBuilder(
+                    "Uyarı",
+                    "Sıfırlama emaili için yukarıdaki email alanını doldurun.",
+                    "Tamam"
+                )
+                    .show(this)
+            } else {
                 Firebase.auth.sendPasswordResetEmail(email.text.toString()).addOnSuccessListener {
-                    val alert = AlertDialog.Builder(this)
-                        .setTitle("Başarılı")
-                        .setMessage("Sıfırlama emaili gönderildi. Lütfen gelen kutunuzu kontrol edin.")
-                        .setPositiveButton("Tamam") { _, _ ->
-
-                        }
-                        .setCancelable(true)
-                    alert.show()
+                    AlertBuilder(
+                        "Başarılı",
+                        "Sıfırlama emaili gönderildi. Lütfen gelen kutunuzu kontrol edin.",
+                        "Tamam"
+                    ).show(this)
                 }.addOnFailureListener {
                     Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 }

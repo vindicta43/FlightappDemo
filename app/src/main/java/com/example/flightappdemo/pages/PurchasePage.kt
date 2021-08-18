@@ -10,6 +10,7 @@ import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelCard
 import com.example.flightappdemo.models.ModelFlight
 import com.example.flightappdemo.models.ModelFlightPurchased
+import com.example.flightappdemo.utils.AlertBuilder
 import com.google.firebase.Timestamp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -154,7 +155,7 @@ class PurchasePage : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         cardsList[cardIndex].cardValidDate,
                         cardsList[cardIndex].cardCvv,
                         cardsList[cardIndex].id,
-                        balance-price
+                        balance - price
                     )
                 )
 
@@ -165,23 +166,15 @@ class PurchasePage : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                             param(FirebaseAnalytics.Param.ITEM_NAME, "btnPurchase")
                         }
 
-                        val dialog = AlertDialog.Builder(this)
-                            .setTitle("Başarılı")
-                            .setMessage("Uçuş satın alındı. Profilinizdeki uçuşlarım sekmesinden uçuşunuzun detaylarını görüntüleyebilirsiniz.")
-                            .setPositiveButton("Tamam") { _, _ ->
-                                finish()
-                            }
-                            .setCancelable(false)
-                        dialog.show()
+                        AlertBuilder(
+                            "Başarılı",
+                            "Uçuş satın alındı. Profilinizdeki uçuşlarım sekmesinden uçuşunuzun detaylarını görüntüleyebilirsiniz.",
+                            "Tamam",
+                            isCancelable = false
+                        ).show(this, true)
                     }
             } else {
-                val dialog = AlertDialog.Builder(this)
-                    .setTitle("Hata")
-                    .setMessage("Yetersiz bakiye")
-                    .setPositiveButton("Tamam") { _, _ ->
-
-                    }
-                dialog.show()
+                AlertBuilder("Hata", "Yetersiz bakiye.", "Tamam").show(this)
             }
         }
     }

@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.Toast
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelUser
+import com.example.flightappdemo.utils.AlertBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -74,9 +75,8 @@ class RegisterPage : AppCompatActivity() {
                                     firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP) {
                                         param(FirebaseAnalytics.Param.METHOD, "sign_up_email")
                                     }
-                                    Toast.makeText(this, "Register succeed.", Toast.LENGTH_LONG)
-                                        .show()
-                                    this.finish()
+                                    AlertBuilder("Başarılı", "Kayıt başarılı.", "Tamam", isCancelable = false)
+                                        .show(this, true)
                                 } else {
                                     Toast.makeText(
                                         this,
@@ -86,7 +86,8 @@ class RegisterPage : AppCompatActivity() {
                                 }
                             }
                     } else {
-                        Toast.makeText(this, "Passwords doesn't match.", Toast.LENGTH_SHORT).show()
+                        AlertBuilder("Hata", "Parolalar eşleşniyor.", "Tamam")
+                            .show(this)
                     }
                 }
             } catch (e: Exception) {

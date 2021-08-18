@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.flightappdemo.R
 import com.example.flightappdemo.models.ModelUser
+import com.example.flightappdemo.utils.AlertBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -130,16 +131,20 @@ class EditProfilePage : AppCompatActivity() {
                                         }
                                         // if password changed uptade
                                         if (password.text.toString().isNotEmpty()) {
-                                            user.updatePassword(password.text.toString()).addOnCompleteListener {
+                                            user.updatePassword(password.text.toString())
+                                                .addOnCompleteListener {
 
-                                            }
+                                                }
                                         }
                                         // update part
                                         val userRef =
                                             dbRef.collection("users").document(auth.uid.toString())
                                         userRef.set(newUser)
                                         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
-                                            param(FirebaseAnalytics.Param.ITEM_NAME, "btnProfileUpdate")
+                                            param(
+                                                FirebaseAnalytics.Param.ITEM_NAME,
+                                                "btnProfileUpdate"
+                                            )
                                         }
                                         // page transaction
                                         logout()
@@ -166,8 +171,8 @@ class EditProfilePage : AppCompatActivity() {
                     firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
                         param(FirebaseAnalytics.Param.ITEM_NAME, "btnProfileUpdate")
                     }
-                    Toast.makeText(this, "Updated successfully", Toast.LENGTH_SHORT).show()
-                    finish()
+                    AlertBuilder("Başarılı", "Başarıyla güncellendi.", "Tamam")
+                        .show(this, true)
                 }
             }
             alert.setNegativeButton("Hayır") { _, _ ->
@@ -175,13 +180,8 @@ class EditProfilePage : AppCompatActivity() {
             }
             alert.show()
         } else {
-            val alert = AlertDialog.Builder(this)
-            alert.setTitle("Uyarı")
-            alert.setMessage("Hiçbir bilgi değiştirilmedi.")
-            alert.setCancelable(false)
-            alert.setPositiveButton("Tamam") { _, _ ->
-            }
-            alert.show()
+            AlertBuilder("Uyarı", "Hiçbir bilgi değiştirilmedi.", "Tamam", isCancelable = false)
+                .show(this)
         }
     }
 
